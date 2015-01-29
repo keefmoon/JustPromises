@@ -291,4 +291,4 @@ Don't bother submitting any breaking changes or anything without unit tests agai
 
 JustPromises is released under the Apache 2.0 License.
 
--Just Eat iOS Team
+-JUST EAT iOS Team
