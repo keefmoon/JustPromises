@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0610"
+   LastUpgradeVersion = "0640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72E1F6BC1A275A0A00F2DB7F"
-               BuildableName = "libJustPromises.a"
+               BlueprintIdentifier = "4FBCFFDD1B46DC9F007BD426"
+               BuildableName = "JustPromises.framework"
                BlueprintName = "JustPromises"
                ReferencedContainer = "container:JustPromises.xcodeproj">
             </BuildableReference>
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72E1F6C71A275A0A00F2DB7F"
+               BlueprintIdentifier = "4FBCFFE61B46DC9F007BD426"
                BuildableName = "JustPromisesTests.xctest"
                BlueprintName = "JustPromisesTests"
                ReferencedContainer = "container:JustPromises.xcodeproj">
@@ -46,7 +46,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "72E1F6C71A275A0A00F2DB7F"
+               BlueprintIdentifier = "4FBCFFE61B46DC9F007BD426"
                BuildableName = "JustPromisesTests.xctest"
                BlueprintName = "JustPromisesTests"
                ReferencedContainer = "container:JustPromises.xcodeproj">
@@ -56,8 +56,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "72E1F6BC1A275A0A00F2DB7F"
-            BuildableName = "libJustPromises.a"
+            BlueprintIdentifier = "4FBCFFDD1B46DC9F007BD426"
+            BuildableName = "JustPromises.framework"
             BlueprintName = "JustPromises"
             ReferencedContainer = "container:JustPromises.xcodeproj">
          </BuildableReference>
@@ -75,8 +75,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "72E1F6BC1A275A0A00F2DB7F"
-            BuildableName = "libJustPromises.a"
+            BlueprintIdentifier = "4FBCFFDD1B46DC9F007BD426"
+            BuildableName = "JustPromises.framework"
             BlueprintName = "JustPromises"
             ReferencedContainer = "container:JustPromises.xcodeproj">
          </BuildableReference>
@@ -93,8 +93,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "72E1F6BC1A275A0A00F2DB7F"
-            BuildableName = "libJustPromises.a"
+            BlueprintIdentifier = "4FBCFFDD1B46DC9F007BD426"
+            BuildableName = "JustPromises.framework"
             BlueprintName = "JustPromises"
             ReferencedContainer = "container:JustPromises.xcodeproj">
          </BuildableReference>

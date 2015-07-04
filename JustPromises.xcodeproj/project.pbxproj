@@ -7,133 +7,120 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F35A5651A6FCD1F008B3A04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35A5641A6FCD1F008B3A04 /* main.m */; };
-		4F35A5681A6FCD1F008B3A04 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35A5671A6FCD1F008B3A04 /* AppDelegate.m */; };
-		4F35A56B1A6FCD1F008B3A04 /* JEDemoExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F35A56A1A6FCD1F008B3A04 /* JEDemoExamples.m */; };
-		4F35A5701A6FCD1F008B3A04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F35A56F1A6FCD1F008B3A04 /* Images.xcassets */; };
-		4F35A5731A6FCD1F008B3A04 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F35A5711A6FCD1F008B3A04 /* LaunchScreen.xib */; };
-		4F35A5861A6FD3C1008B3A04 /* JEFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D25C141A275DB600D433EE /* JEFuture.m */; };
-		4F35A5871A6FD3C1008B3A04 /* JEProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E29C471A31F5AC00C1830B /* JEProgress.m */; };
-		72D25C151A275DB600D433EE /* JEFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D25C141A275DB600D433EE /* JEFuture.m */; };
-		72D25C181A275E1D00D433EE /* JEFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 72D25C171A275E1D00D433EE /* JEFutureTests.m */; };
-		72E1F6C91A275A0A00F2DB7F /* libJustPromises.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E1F6BD1A275A0A00F2DB7F /* libJustPromises.a */; };
-		72E29C481A31F5AC00C1830B /* JEProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E29C471A31F5AC00C1830B /* JEProgress.m */; };
-		72E29C4B1A31F5C100C1830B /* JEProgressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 72E29C4A1A31F5C100C1830B /* JEProgressTests.m */; };
+		4F74B0E91B47CF6500595442 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74B0E31B47CF6500595442 /* AppDelegate.m */; };
+		4F74B0EA1B47CF6500595442 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F74B0E41B47CF6500595442 /* LaunchScreen.xib */; };
+		4F74B0ED1B47CF6500595442 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74B0E81B47CF6500595442 /* main.m */; };
+		4F74B0F01B47CFD100595442 /* JEDemoExamples.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F74B0EF1B47CFD100595442 /* JEDemoExamples.m */; };
+		4F74B0F11B47D03C00595442 /* JustPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */; };
+		4FBC00031B46DCE2007BD426 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FBCFFFD1B46DCE2007BD426 /* Info.plist */; };
+		4FBC00041B46DCE2007BD426 /* JEFuture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBCFFFE1B46DCE2007BD426 /* JEFuture.h */; };
+		4FBC00051B46DCE2007BD426 /* JEFuture.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBCFFFF1B46DCE2007BD426 /* JEFuture.m */; };
+		4FBC00061B46DCE2007BD426 /* JEProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBC00001B46DCE2007BD426 /* JEProgress.h */; };
+		4FBC00071B46DCE2007BD426 /* JEProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBC00011B46DCE2007BD426 /* JEProgress.m */; };
+		4FBC00081B46DCE2007BD426 /* JustPromises.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBC00021B46DCE2007BD426 /* JustPromises.h */; };
+		4FBC000D1B46DD1B007BD426 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4FBC000A1B46DD1B007BD426 /* Info.plist */; };
+		4FBC000E1B46DD1B007BD426 /* JEFutureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBC000B1B46DD1B007BD426 /* JEFutureTests.m */; };
+		4FBC000F1B46DD1B007BD426 /* JEProgressTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FBC000C1B46DD1B007BD426 /* JEProgressTests.m */; };
+		4FBCFFE81B46DC9F007BD426 /* JustPromises.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		72E1F6CA1A275A0A00F2DB7F /* PBXContainerItemProxy */ = {
+		4FBCFFE91B46DC9F007BD426 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 72E1F6B51A275A0A00F2DB7F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 72E1F6BC1A275A0A00F2DB7F;
+			remoteGlobalIDString = 4FBCFFDD1B46DC9F007BD426;
 			remoteInfo = JustPromises;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		72E1F6BB1A275A0A00F2DB7F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		4F35A55B1A6FBD15008B3A04 /* JustPromises.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = JustPromises.podspec; sourceTree = "<group>"; };
-		4F35A5601A6FCD1E008B3A04 /* JustPromisesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustPromisesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4F35A5631A6FCD1F008B3A04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4F35A5641A6FCD1F008B3A04 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4F35A5661A6FCD1F008B3A04 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4F35A5671A6FCD1F008B3A04 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4F35A5691A6FCD1F008B3A04 /* JEDemoExamples.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JEDemoExamples.h; sourceTree = "<group>"; };
-		4F35A56A1A6FCD1F008B3A04 /* JEDemoExamples.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JEDemoExamples.m; sourceTree = "<group>"; };
-		4F35A56F1A6FCD1F008B3A04 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4F35A5721A6FCD1F008B3A04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		4F35A57D1A6FCD1F008B3A04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4F35A57E1A6FCD1F008B3A04 /* JustPromisesDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JustPromisesDemoTests.m; sourceTree = "<group>"; };
+		4F74B0AE1B47CD0300595442 /* JustPromisesDEMO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JustPromisesDEMO.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F74B0E21B47CF6500595442 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4F74B0E31B47CF6500595442 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4F74B0E51B47CF6500595442 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		4F74B0E71B47CF6500595442 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F74B0E81B47CF6500595442 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4F74B0EE1B47CFD100595442 /* JEDemoExamples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEDemoExamples.h; sourceTree = "<group>"; };
+		4F74B0EF1B47CFD100595442 /* JEDemoExamples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEDemoExamples.m; sourceTree = "<group>"; };
 		4F8D5A5A1A7104FF004179C0 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		4F8D5A5B1A7104FF004179C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		4F8D5A5C1A7107BA004179C0 /* JustPromises.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustPromises.h; sourceTree = "<group>"; };
-		72D25C131A275DB600D433EE /* JEFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEFuture.h; sourceTree = "<group>"; };
-		72D25C141A275DB600D433EE /* JEFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture.m; sourceTree = "<group>"; };
-		72D25C171A275E1D00D433EE /* JEFutureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFutureTests.m; sourceTree = "<group>"; };
-		72E1F6BD1A275A0A00F2DB7F /* libJustPromises.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJustPromises.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		72E1F6C81A275A0A00F2DB7F /* JustPromisesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustPromisesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		72E1F6CE1A275A0A00F2DB7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72E29C461A31F5AC00C1830B /* JEProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEProgress.h; sourceTree = "<group>"; };
-		72E29C471A31F5AC00C1830B /* JEProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEProgress.m; sourceTree = "<group>"; };
-		72E29C4A1A31F5C100C1830B /* JEProgressTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEProgressTests.m; sourceTree = "<group>"; };
+		4FBC00001B46DCE2007BD426 /* JEProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEProgress.h; sourceTree = "<group>"; };
+		4FBC00011B46DCE2007BD426 /* JEProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEProgress.m; sourceTree = "<group>"; };
+		4FBC00021B46DCE2007BD426 /* JustPromises.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JustPromises.h; sourceTree = "<group>"; };
+		4FBC000A1B46DD1B007BD426 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FBC000B1B46DD1B007BD426 /* JEFutureTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFutureTests.m; sourceTree = "<group>"; };
+		4FBC000C1B46DD1B007BD426 /* JEProgressTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEProgressTests.m; sourceTree = "<group>"; };
+		4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JustPromises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FBCFFE71B46DC9F007BD426 /* JustPromisesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustPromisesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4FBCFFFD1B46DCE2007BD426 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4FBCFFFE1B46DCE2007BD426 /* JEFuture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEFuture.h; sourceTree = "<group>"; };
+		4FBCFFFF1B46DCE2007BD426 /* JEFuture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4F35A55D1A6FCD1E008B3A04 /* Frameworks */ = {
+		4F74B0AB1B47CD0300595442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4F74B0F11B47D03C00595442 /* JustPromises.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FBCFFDA1B46DC9F007BD426 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72E1F6BA1A275A0A00F2DB7F /* Frameworks */ = {
+		4FBCFFE41B46DC9F007BD426 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		72E1F6C51A275A0A00F2DB7F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				72E1F6C91A275A0A00F2DB7F /* libJustPromises.a in Frameworks */,
+				4FBCFFE81B46DC9F007BD426 /* JustPromises.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4F35A5611A6FCD1E008B3A04 /* JustPromisesDemo */ = {
+		4F74B0E11B47CF6500595442 /* JustPromisesDEMO */ = {
 			isa = PBXGroup;
 			children = (
-				4F35A5661A6FCD1F008B3A04 /* AppDelegate.h */,
-				4F35A5671A6FCD1F008B3A04 /* AppDelegate.m */,
-				4F35A5691A6FCD1F008B3A04 /* JEDemoExamples.h */,
-				4F35A56A1A6FCD1F008B3A04 /* JEDemoExamples.m */,
-				4F35A56F1A6FCD1F008B3A04 /* Images.xcassets */,
-				4F35A5711A6FCD1F008B3A04 /* LaunchScreen.xib */,
-				4F35A5621A6FCD1E008B3A04 /* Supporting Files */,
+				4F74B0EE1B47CFD100595442 /* JEDemoExamples.h */,
+				4F74B0EF1B47CFD100595442 /* JEDemoExamples.m */,
+				4F74B0E21B47CF6500595442 /* AppDelegate.h */,
+				4F74B0E31B47CF6500595442 /* AppDelegate.m */,
+				4F74B0E41B47CF6500595442 /* LaunchScreen.xib */,
+				4F74B0E71B47CF6500595442 /* Info.plist */,
+				4F74B0E81B47CF6500595442 /* main.m */,
 			);
-			path = JustPromisesDemo;
+			path = JustPromisesDEMO;
 			sourceTree = "<group>";
 		};
-		4F35A5621A6FCD1E008B3A04 /* Supporting Files */ = {
+		4FBC00091B46DD1B007BD426 /* JustPromisesTests */ = {
 			isa = PBXGroup;
 			children = (
-				4F35A5631A6FCD1F008B3A04 /* Info.plist */,
-				4F35A5641A6FCD1F008B3A04 /* main.m */,
+				4FBC000A1B46DD1B007BD426 /* Info.plist */,
+				4FBC000B1B46DD1B007BD426 /* JEFutureTests.m */,
+				4FBC000C1B46DD1B007BD426 /* JEProgressTests.m */,
 			);
-			name = "Supporting Files";
+			path = JustPromisesTests;
 			sourceTree = "<group>";
 		};
-		4F35A57B1A6FCD1F008B3A04 /* JustPromisesDemoTests */ = {
+		4FBCFFFC1B46DCE2007BD426 /* JustPromises */ = {
 			isa = PBXGroup;
 			children = (
-				4F35A57E1A6FCD1F008B3A04 /* JustPromisesDemoTests.m */,
-				4F35A57C1A6FCD1F008B3A04 /* Supporting Files */,
+				4FBCFFFD1B46DCE2007BD426 /* Info.plist */,
+				4FBCFFFE1B46DCE2007BD426 /* JEFuture.h */,
+				4FBCFFFF1B46DCE2007BD426 /* JEFuture.m */,
+				4FBC00001B46DCE2007BD426 /* JEProgress.h */,
+				4FBC00011B46DCE2007BD426 /* JEProgress.m */,
+				4FBC00021B46DCE2007BD426 /* JustPromises.h */,
 			);
-			path = JustPromisesDemoTests;
-			sourceTree = "<group>";
-		};
-		4F35A57C1A6FCD1F008B3A04 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4F35A57D1A6FCD1F008B3A04 /* Info.plist */,
-			);
-			name = "Supporting Files";
+			path = JustPromises;
 			sourceTree = "<group>";
 		};
 		72E1F6B41A275A0A00F2DB7F = {
@@ -142,10 +129,9 @@
 				4F8D5A5A1A7104FF004179C0 /* LICENSE.md */,
 				4F8D5A5B1A7104FF004179C0 /* README.md */,
 				4F35A55B1A6FBD15008B3A04 /* JustPromises.podspec */,
-				72E1F6BF1A275A0A00F2DB7F /* JustPromises */,
-				72E1F6CC1A275A0A00F2DB7F /* JustPromisesTests */,
-				4F35A5611A6FCD1E008B3A04 /* JustPromisesDemo */,
-				4F35A57B1A6FCD1F008B3A04 /* JustPromisesDemoTests */,
+				4FBCFFFC1B46DCE2007BD426 /* JustPromises */,
+				4FBC00091B46DD1B007BD426 /* JustPromisesTests */,
+				4F74B0E11B47CF6500595442 /* JustPromisesDEMO */,
 				72E1F6BE1A275A0A00F2DB7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -153,70 +139,54 @@
 		72E1F6BE1A275A0A00F2DB7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				72E1F6BD1A275A0A00F2DB7F /* libJustPromises.a */,
-				72E1F6C81A275A0A00F2DB7F /* JustPromisesTests.xctest */,
-				4F35A5601A6FCD1E008B3A04 /* JustPromisesDemo.app */,
+				4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */,
+				4FBCFFE71B46DC9F007BD426 /* JustPromisesTests.xctest */,
+				4F74B0AE1B47CD0300595442 /* JustPromisesDEMO.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		72E1F6BF1A275A0A00F2DB7F /* JustPromises */ = {
-			isa = PBXGroup;
-			children = (
-				4F8D5A5C1A7107BA004179C0 /* JustPromises.h */,
-				72D25C131A275DB600D433EE /* JEFuture.h */,
-				72D25C141A275DB600D433EE /* JEFuture.m */,
-				72E29C461A31F5AC00C1830B /* JEProgress.h */,
-				72E29C471A31F5AC00C1830B /* JEProgress.m */,
-			);
-			path = JustPromises;
-			sourceTree = "<group>";
-		};
-		72E1F6CC1A275A0A00F2DB7F /* JustPromisesTests */ = {
-			isa = PBXGroup;
-			children = (
-				72D25C171A275E1D00D433EE /* JEFutureTests.m */,
-				72E29C4A1A31F5C100C1830B /* JEProgressTests.m */,
-				72E1F6CD1A275A0A00F2DB7F /* Supporting Files */,
-			);
-			path = JustPromisesTests;
-			sourceTree = "<group>";
-		};
-		72E1F6CD1A275A0A00F2DB7F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				72E1F6CE1A275A0A00F2DB7F /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4FBCFFDB1B46DC9F007BD426 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FBC00081B46DCE2007BD426 /* JustPromises.h in Headers */,
+				4FBC00061B46DCE2007BD426 /* JEProgress.h in Headers */,
+				4FBC00041B46DCE2007BD426 /* JEFuture.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		4F35A55F1A6FCD1E008B3A04 /* JustPromisesDemo */ = {
+		4F74B0AD1B47CD0300595442 /* JustPromisesDEMO */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4F35A5801A6FCD1F008B3A04 /* Build configuration list for PBXNativeTarget "JustPromisesDemo" */;
+			buildConfigurationList = 4F74B0D21B47CD0300595442 /* Build configuration list for PBXNativeTarget "JustPromisesDEMO" */;
 			buildPhases = (
-				4F35A55C1A6FCD1E008B3A04 /* Sources */,
-				4F35A55D1A6FCD1E008B3A04 /* Frameworks */,
-				4F35A55E1A6FCD1E008B3A04 /* Resources */,
+				4F74B0AA1B47CD0300595442 /* Sources */,
+				4F74B0AB1B47CD0300595442 /* Frameworks */,
+				4F74B0AC1B47CD0300595442 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = JustPromisesDemo;
-			productName = JustPromisesDemo;
-			productReference = 4F35A5601A6FCD1E008B3A04 /* JustPromisesDemo.app */;
+			name = JustPromisesDEMO;
+			productName = JustPromisesDEMO;
+			productReference = 4F74B0AE1B47CD0300595442 /* JustPromisesDEMO.app */;
 			productType = "com.apple.product-type.application";
 		};
-		72E1F6BC1A275A0A00F2DB7F /* JustPromises */ = {
+		4FBCFFDD1B46DC9F007BD426 /* JustPromises */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 72E1F6D11A275A0A00F2DB7F /* Build configuration list for PBXNativeTarget "JustPromises" */;
+			buildConfigurationList = 4FBCFFF51B46DC9F007BD426 /* Build configuration list for PBXNativeTarget "JustPromises" */;
 			buildPhases = (
-				72E1F6B91A275A0A00F2DB7F /* Sources */,
-				72E1F6BA1A275A0A00F2DB7F /* Frameworks */,
-				72E1F6BB1A275A0A00F2DB7F /* CopyFiles */,
+				4FBCFFD91B46DC9F007BD426 /* Sources */,
+				4FBCFFDA1B46DC9F007BD426 /* Frameworks */,
+				4FBCFFDB1B46DC9F007BD426 /* Headers */,
+				4FBCFFDC1B46DC9F007BD426 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -224,25 +194,25 @@
 			);
 			name = JustPromises;
 			productName = JustPromises;
-			productReference = 72E1F6BD1A275A0A00F2DB7F /* libJustPromises.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		72E1F6C71A275A0A00F2DB7F /* JustPromisesTests */ = {
+		4FBCFFE61B46DC9F007BD426 /* JustPromisesTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 72E1F6D41A275A0A00F2DB7F /* Build configuration list for PBXNativeTarget "JustPromisesTests" */;
+			buildConfigurationList = 4FBCFFF91B46DC9F007BD426 /* Build configuration list for PBXNativeTarget "JustPromisesTests" */;
 			buildPhases = (
-				72E1F6C41A275A0A00F2DB7F /* Sources */,
-				72E1F6C51A275A0A00F2DB7F /* Frameworks */,
-				72E1F6C61A275A0A00F2DB7F /* Resources */,
+				4FBCFFE31B46DC9F007BD426 /* Sources */,
+				4FBCFFE41B46DC9F007BD426 /* Frameworks */,
+				4FBCFFE51B46DC9F007BD426 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				72E1F6CB1A275A0A00F2DB7F /* PBXTargetDependency */,
+				4FBCFFEA1B46DC9F007BD426 /* PBXTargetDependency */,
 			);
 			name = JustPromisesTests;
 			productName = JustPromisesTests;
-			productReference = 72E1F6C81A275A0A00F2DB7F /* JustPromisesTests.xctest */;
+			productReference = 4FBCFFE71B46DC9F007BD426 /* JustPromisesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -254,14 +224,15 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "JUST EAT";
 				TargetAttributes = {
-					4F35A55F1A6FCD1E008B3A04 = {
-						CreatedOnToolsVersion = 6.1.1;
+					4F74B0AD1B47CD0300595442 = {
+						CreatedOnToolsVersion = 6.4;
 					};
-					72E1F6BC1A275A0A00F2DB7F = {
-						CreatedOnToolsVersion = 6.1;
+					4FBCFFDD1B46DC9F007BD426 = {
+						CreatedOnToolsVersion = 7.0;
 					};
-					72E1F6C71A275A0A00F2DB7F = {
-						CreatedOnToolsVersion = 6.1;
+					4FBCFFE61B46DC9F007BD426 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 4F35A55F1A6FCD1E008B3A04;
 					};
 				};
 			};
@@ -278,78 +249,84 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				72E1F6BC1A275A0A00F2DB7F /* JustPromises */,
-				72E1F6C71A275A0A00F2DB7F /* JustPromisesTests */,
-				4F35A55F1A6FCD1E008B3A04 /* JustPromisesDemo */,
+				4FBCFFDD1B46DC9F007BD426 /* JustPromises */,
+				4FBCFFE61B46DC9F007BD426 /* JustPromisesTests */,
+				4F74B0AD1B47CD0300595442 /* JustPromisesDEMO */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4F35A55E1A6FCD1E008B3A04 /* Resources */ = {
+		4F74B0AC1B47CD0300595442 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F35A5731A6FCD1F008B3A04 /* LaunchScreen.xib in Resources */,
-				4F35A5701A6FCD1F008B3A04 /* Images.xcassets in Resources */,
+				4F74B0EA1B47CF6500595442 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72E1F6C61A275A0A00F2DB7F /* Resources */ = {
+		4FBCFFDC1B46DC9F007BD426 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FBC00031B46DCE2007BD426 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4FBCFFE51B46DC9F007BD426 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FBC000D1B46DD1B007BD426 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4F35A55C1A6FCD1E008B3A04 /* Sources */ = {
+		4F74B0AA1B47CD0300595442 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F35A56B1A6FCD1F008B3A04 /* JEDemoExamples.m in Sources */,
-				4F35A5871A6FD3C1008B3A04 /* JEProgress.m in Sources */,
-				4F35A5681A6FCD1F008B3A04 /* AppDelegate.m in Sources */,
-				4F35A5651A6FCD1F008B3A04 /* main.m in Sources */,
-				4F35A5861A6FD3C1008B3A04 /* JEFuture.m in Sources */,
+				4F74B0ED1B47CF6500595442 /* main.m in Sources */,
+				4F74B0E91B47CF6500595442 /* AppDelegate.m in Sources */,
+				4F74B0F01B47CFD100595442 /* JEDemoExamples.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72E1F6B91A275A0A00F2DB7F /* Sources */ = {
+		4FBCFFD91B46DC9F007BD426 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72D25C151A275DB600D433EE /* JEFuture.m in Sources */,
-				72E29C481A31F5AC00C1830B /* JEProgress.m in Sources */,
+				4FBC00051B46DCE2007BD426 /* JEFuture.m in Sources */,
+				4FBC00071B46DCE2007BD426 /* JEProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		72E1F6C41A275A0A00F2DB7F /* Sources */ = {
+		4FBCFFE31B46DC9F007BD426 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72D25C181A275E1D00D433EE /* JEFutureTests.m in Sources */,
-				72E29C4B1A31F5C100C1830B /* JEProgressTests.m in Sources */,
+				4FBC000E1B46DD1B007BD426 /* JEFutureTests.m in Sources */,
+				4FBC000F1B46DD1B007BD426 /* JEProgressTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		72E1F6CB1A275A0A00F2DB7F /* PBXTargetDependency */ = {
+		4FBCFFEA1B46DC9F007BD426 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 72E1F6BC1A275A0A00F2DB7F /* JustPromises */;
-			targetProxy = 72E1F6CA1A275A0A00F2DB7F /* PBXContainerItemProxy */;
+			target = 4FBCFFDD1B46DC9F007BD426 /* JustPromises */;
+			targetProxy = 4FBCFFE91B46DC9F007BD426 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4F35A5711A6FCD1F008B3A04 /* LaunchScreen.xib */ = {
+		4F74B0E41B47CF6500595442 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4F35A5721A6FCD1F008B3A04 /* Base */,
+				4F74B0E51B47CF6500595442 /* Base */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -357,31 +334,114 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4F35A5811A6FCD1F008B3A04 /* Debug */ = {
+		4F74B0CE1B47CD0300595442 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = JustPromisesDemo/Info.plist;
+				INFOPLIST_FILE = JustPromisesDEMO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		4F35A5821A6FCD1F008B3A04 /* Release */ = {
+		4F74B0CF1B47CD0300595442 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = JustPromisesDemo/Info.plist;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromisesDEMO/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4FBCFFF61B46DC9F007BD426 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromises/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4FBCFFF71B46DC9F007BD426 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromises/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		4FBCFFFA1B46DC9F007BD426 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromisesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromisesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustPromisesDemo.app/JustPromisesDemo";
+			};
+			name = Debug;
+		};
+		4FBCFFFB1B46DC9F007BD426 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromisesTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromisesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustPromisesDemo.app/JustPromisesDemo";
 			};
 			name = Release;
 		};
@@ -419,7 +479,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -454,69 +514,38 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		72E1F6D21A275A0A00F2DB7F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		72E1F6D31A275A0A00F2DB7F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		72E1F6D51A275A0A00F2DB7F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = JustPromisesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		72E1F6D61A275A0A00F2DB7F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = JustPromisesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4F35A5801A6FCD1F008B3A04 /* Build configuration list for PBXNativeTarget "JustPromisesDemo" */ = {
+		4F74B0D21B47CD0300595442 /* Build configuration list for PBXNativeTarget "JustPromisesDEMO" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4F35A5811A6FCD1F008B3A04 /* Debug */,
-				4F35A5821A6FCD1F008B3A04 /* Release */,
+				4F74B0CE1B47CD0300595442 /* Debug */,
+				4F74B0CF1B47CD0300595442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4FBCFFF51B46DC9F007BD426 /* Build configuration list for PBXNativeTarget "JustPromises" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FBCFFF61B46DC9F007BD426 /* Debug */,
+				4FBCFFF71B46DC9F007BD426 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FBCFFF91B46DC9F007BD426 /* Build configuration list for PBXNativeTarget "JustPromisesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4FBCFFFA1B46DC9F007BD426 /* Debug */,
+				4FBCFFFB1B46DC9F007BD426 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -526,24 +555,6 @@
 			buildConfigurations = (
 				72E1F6CF1A275A0A00F2DB7F /* Debug */,
 				72E1F6D01A275A0A00F2DB7F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		72E1F6D11A275A0A00F2DB7F /* Build configuration list for PBXNativeTarget "JustPromises" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				72E1F6D21A275A0A00F2DB7F /* Debug */,
-				72E1F6D31A275A0A00F2DB7F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		72E1F6D41A275A0A00F2DB7F /* Build configuration list for PBXNativeTarget "JustPromisesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				72E1F6D51A275A0A00F2DB7F /* Debug */,
-				72E1F6D61A275A0A00F2DB7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
