@@ -318,6 +318,24 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTAssertEqualObjects([f2 result], @(2));
 }
 
+- (void)test_GivenPromise_WhenContinuesWithTaskAndSetResult_ThenFutureHasResult
+{
+    JEPromise *p = [JEPromise new];
+    JEFuture *f = [p future];
+    
+    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
+    {
+        XCTAssertTrue([fut hasResult]);
+        return [JEFuture futureWithResolutionOfFuture:fut];
+    };
+    
+    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    
+    [p setResult:@42];
+    XCTAssertTrue([f2 hasResult]);
+    XCTAssertEqualObjects([f2 result], @42);
+}
+
 - (void)test_GivenPromise_WhenContinuesWithTaskAndSetError_ThenFutureHasError
 {
     JEPromise *p = [JEPromise new];
@@ -692,6 +710,41 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTAssertEqualObjects([results[0] result], @1);
     XCTAssertTrue([results[1] hasError]);
     XCTAssertTrue([results[2] isCancelled]);
+}
+
+- (void)test_GivenUnresolvedPromise_WhenPrintedDescription_ThenProperDescriptionIsPrinted
+{
+    JEPromise *p = [JEPromise new];
+    NSString *testValue = [@"Unresolved" lowercaseString];
+    NSString *targetValue = [[p description] lowercaseString];
+    XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
+}
+
+- (void)test_GivenPromiseResolvedWithResult_WhenPrintedDescription_ThenProperDescriptionIsPrinted
+{
+    JEPromise *p = [JEPromise new];
+    [p setResult:@42];
+    NSString *testValue = [@"Resolved with result" lowercaseString];
+    NSString *targetValue = [[p description] lowercaseString];
+    XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
+}
+
+- (void)test_GivenPromiseResolvedWithError_WhenPrintedDescription_ThenProperDescriptionIsPrinted
+{
+    JEPromise *p = [JEPromise new];
+    [p setError:[NSError errorWithDomain:@"com.justeat.JustPromises" code:0 userInfo:nil]];
+    NSString *testValue = [@"Resolved with error" lowercaseString];
+    NSString *targetValue = [[p description] lowercaseString];
+    XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
+}
+
+- (void)test_GivenCanceledPromise_WhenPrintedDescription_ThenProperDescriptionIsPrinted
+{
+    JEPromise *p = [JEPromise new];
+    [p setCancelled];
+    NSString *testValue = [@"Resolved with cancellation" lowercaseString];
+    NSString *targetValue = [[p description] lowercaseString];
+    XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
 }
 
 @end

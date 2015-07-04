@@ -420,9 +420,6 @@
     NSString *result = nil;
     
     switch([self state]) {
-        case JEFutureStateUnresolved:
-            result = @"Unresolved";
-            break;
         case JEFutureStateResolvedWithResult:
             result = @"Resolved with result";
             break;
@@ -432,8 +429,10 @@
         case JEFutureStateResolvedWithCancellation:
             result = @"Resolved with cancellation";
             break;
+        case JEFutureStateUnresolved:
         default:
-            [NSException raise:NSGenericException format:@"Unexpected Resolution state."];
+            result = @"Unresolved";
+            break;
     }
     
     return result;
