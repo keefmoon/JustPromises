@@ -441,7 +441,6 @@
 @end
 
 
-
 @interface JEPromise ()
 
 @property (strong, atomic) JEFuture *future;
