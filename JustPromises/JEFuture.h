@@ -10,12 +10,9 @@
 
 @class JEFuture;
 
-typedef void (^JEFutureVoidContinuation)(JEFuture *fut);
+typedef void (^JEContinuation)(JEFuture *fut);
 
-typedef id (^JEContinuation)(JEFuture *fut);
 typedef JEFuture* (^JETask)(JEFuture *fut);
-
-typedef id (^JESuccessContinuation)(id val);
 typedef JEFuture* (^JESuccessTask)(id val);
 
 typedef NS_ENUM(NSUInteger, JEFutureState) {
@@ -103,7 +100,7 @@ typedef NS_ENUM(NSUInteger, JEFutureState) {
  *
  *  @param continuation The continuation block.
 */
-- (void)setContinuation:(JEFutureVoidContinuation)continuation;
+- (void)setContinuation:(JEContinuation)continuation;
 
 /**
  *  Set the continuation on the receiver executing it on a specific queue. If the receiver is already resolved, the continuation block will execute immediately.
@@ -111,28 +108,7 @@ typedef NS_ENUM(NSUInteger, JEFutureState) {
  *  @param queue        The queue on which the continuation block is executed.
  *  @param continuation The continuation block.
  */
-- (void)onQueue:(dispatch_queue_t)queue setContinuation:(JEFutureVoidContinuation)continuation;
-
-/**
- *  Set the continuation on the receiver providing a block and return the subsequent future.
- *  This method should be used for synchronous operations that return a value straightaway.
- *
- *  @param block The block to execute for the continuation.
- *
- *  @return The subsequent future.
- */
-- (JEFuture *)continueWithBlock:(JEContinuation)block;
-
-/**
- *  Set the continuation on the receiver providing a block and a queue and return the subsequent future.
- *  This method should be used for synchronous operations that return a value straightaway.
- *
- *  @param queue The queue on which the block is executed.
- *  @param block The block to execute for the continuation.
- *
- *  @return The subsequent future.
- */
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withBlock:(JEContinuation)block;
+- (void)onQueue:(dispatch_queue_t)queue setContinuation:(JEContinuation)continuation;
 
 /**
  *  Set the continuation on the receiver providing a block and return the subsequent future.
@@ -154,27 +130,6 @@ typedef NS_ENUM(NSUInteger, JEFutureState) {
  *  @return The subsequent future.
  */
 - (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withTask:(JETask)task;
-
-/**
- *  Set the continuation on the receiver providing a block and return the subsequent future.
- *  This method should be used for synchronous operations that return a value straightaway.
- *
- *  @param block The block to execute for the continuation if the future passed in suceeded.
- *
- *  @return The subsequent future.
- */
-- (JEFuture *)continueWithSuccessBlock:(JESuccessContinuation)successBlock;
-
-/**
- *  Set the continuation on the receiver providing a block and a queue and return the subsequent future.
- *  This method should be used for synchronous operations that return a value straightaway.
- *
- *  @param queue The queue on which the block is executed.
- *  @param block The block to execute for the continuation if the future passed in suceeded.
- *
- *  @return The subsequent future.
- */
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessBlock:(JESuccessContinuation)successBlock;
 
 /**
  *  Set the continuation on the receiver providing a block and return the subsequent future.

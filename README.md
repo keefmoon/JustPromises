@@ -44,18 +44,10 @@ Please refer to the demo project to have an idea of how to use this component.
 
 ###API Overview
 
-In our terminology, a `task` is intended to represent an asynchronous operation, while a `block` represents a synchronous one. Futures shine when dealing with asynchronous operations rather than synchronous ones.
+In our terminology, a `task` is intended to represent an asynchronous operation.
 
-All of these methods set the continuation on the future providing a block and return the subsequent future.
+These methods set the continuation on the future providing a block and return the subsequent future.
 The block in the 'success' versions is called only when the previos future in the chain has a result (i.e. doesn't fail or is not cancelled).
-
-The followings should be used for synchronous operations that return a value straightaway.
-The block parameter returns the result of the sync operation.
-
-``` objective-c
-- (JEFuture *)continueWithBlock:(id(^)(JEFuture *fut))block;
-- (JEFuture *)continueWithSuccessBlock:(id(^)(id result))successBlock;
-```
 
 The followings should be used for asynchronous operations that return a future straightaway.
 The block parameter returns the future, representing the async operation.
@@ -67,9 +59,7 @@ The block parameter returns the future, representing the async operation.
 
 Versions with the ability to specify the queue
 ``` objective-c
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withBlock:(JEContinuation)block;
 - (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withTask:(JETask)task;
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessBlock:(JESuccessContinuation)successBlock;
 - (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessTask:(JESuccessTask)successTask;
 ```
 

@@ -11,11 +11,9 @@
 
 static NSString *const kTestErrorDomain = @"TestError";
 
-
 @interface JEFutureTests : XCTestCase
 
 @end
-
 
 @implementation JEFutureTests
 
@@ -204,57 +202,6 @@ static NSString *const kTestErrorDomain = @"TestError";
     [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
-- (void)test_GivenPromise_WhenFutureContinuesWithBlock_ThenSubsequentFutureHasResult
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithBlock:^id(JEFuture *fut) {
-        XCTAssertTrue([fut hasResult]);
-        return @([[fut result] intValue] * 2);
-    }];
-    
-    [p setResult:@(1)];
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @(2));
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithBlockOnSpecificQueue_ThenSubsequentFutureHasResult
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    JEFuture *f2 = [f continueOnQueue:queue withBlock:^id(JEFuture *fut) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        XCTAssertEqual(queue, dispatch_get_current_queue());
-#pragma clang diagnostic pop
-        return @([[fut result] intValue] * 2);
-    }];
-    
-    [p setResult:@(1)];
-    XCTAssertEqualObjects([f2 result], @(2));
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithBlockAndResultIsSetWhileWaiting_ThenSubsequentFutureHasResult
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithBlock:^id(JEFuture *fut) {
-        return @([[fut result] intValue] * 2);
-    }];
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
-        [p setResult:@(1)];
-    });
-    
-    XCTAssertEqualObjects([f2 result], @(2));
-}
-
 - (void)test_GivenPromise_WhenFutureContinuesWithSynchronousTaskAndResultIsSet_ThenNewFutureHasResult
 {
     JEPromise *p = [JEPromise new];
@@ -398,71 +345,6 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTAssertEqualObjects([f2 result], @(2));
 }
 
-- (void)test_GivenPromise_WhenFutureContinuesWithSuccessBlockAndResultIsSet_ThenFutureHasResultSet
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithSuccessBlock:^id(NSNumber *val) {
-        return @([val intValue] * 2);
-    }];
-    
-    [p setResult:@(1)];
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @(2));
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithSuccessBlockAndErrorIsSet_ThenBlockIsNotExecutedAndFutureHasErrorSet
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithSuccessBlock:^id(NSNumber *val) {
-        XCTAssert(NO, @"This block should not be called");
-        return @([val intValue] * 2);
-    }];
-    
-    NSError *error = [NSError errorWithDomain:kTestErrorDomain code:0 userInfo:nil];
-    [p setError:error];
-    
-    XCTAssertTrue([f2 hasError]);
-    XCTAssertEqualObjects([[f2 error] domain], kTestErrorDomain);
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithSuccessBlockAndIsCancelled_ThenBlockIsNotExecutedAndFutureIsCancelled
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithSuccessBlock:^id(NSNumber *val) {
-        XCTAssert(NO, @"This block should not be called");
-        return @([val intValue] * 2);
-    }];
-    
-    [p setCancelled];
-    XCTAssertTrue([f2 isCancelled]);
-    XCTAssertNil([f2 result]);
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithSuccessBlockOnSpecificQueueAndResultIsSet_ThenResultIsSet
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
-    JEFuture *f2 = [f continueOnQueue:queue withSuccessBlock:^id(NSNumber *val) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        XCTAssertEqual(queue, dispatch_get_current_queue());
-#pragma clang diagnostic pop
-        return @([val intValue] * 2);
-    }];
-    
-    [p setResult:@(1)];
-    XCTAssertEqualObjects([f2 result], @(2));
-}
-
 - (void)test_GivenPromise_WhenFutureContinuesWithSuccessTaskAndResultIsSet_ThenResultIsSetOnSubsequentFuture
 {
     JEPromise *p = [JEPromise new];
@@ -585,82 +467,6 @@ static NSString *const kTestErrorDomain = @"TestError";
     [f2 wait];
     XCTAssertTrue([f2 isCancelled]);
     XCTAssertNil([f2 result]);
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithBlockAfterCancelling_ThenSubsequentFutureHasResult
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithBlock:^id(JEFuture *fut) {
-        XCTAssertTrue([fut isCancelled]);
-        XCTAssertFalse([fut hasResult]);
-        XCTAssertFalse([fut hasError]);
-        XCTAssertNil([fut result]);
-        return @3;
-    }];
-    
-    [p setCancelled];
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @3);
-}
-
-- (void)test_GivenPromise_WhenFutureContinuesWithBlockAfterError_ThenSubsequentFutureHasResult
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [f continueWithBlock:^id(JEFuture *fut) {
-        XCTAssertFalse([fut isCancelled]);
-        XCTAssertFalse([fut hasResult]);
-        XCTAssertTrue([fut hasError]);
-        XCTAssertNil([fut result]);
-        return @3;
-    }];
-    
-    NSError *error = [NSError errorWithDomain:kTestErrorDomain code:0 userInfo:nil];
-    [p setError:error];
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @3);
-}
-
-- (void)test_GivenPromise_WhenSetError_ThenErrorIsPassedOverSuccessfullContinuations
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [[f continueWithSuccessBlock:^id(NSNumber *val) {
-        XCTAssert(NO, @"This block should not be called");
-        return @([val intValue] * 2);
-    }] continueWithBlock:^id(JEFuture *fut) {
-        XCTAssertTrue([fut hasError]);
-        XCTAssertEqualObjects([[fut error] domain], kTestErrorDomain);
-        return @3;
-    }];
-    
-    NSError *error = [NSError errorWithDomain:kTestErrorDomain code:0 userInfo:nil];
-    [p setError:error];
-    
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @(3));
-}
-
-- (void)test_GivenPromise_WhenCancelled_ThenCancellationIsPassedOverSuccessfullContinuations
-{
-    JEPromise *p = [JEPromise new];
-    JEFuture *f = [p future];
-    
-    JEFuture *f2 = [[f continueWithSuccessBlock:^id(NSNumber *val) {
-        XCTAssert(NO, @"This block should not be called");
-        return @([val intValue] * 2);
-    }] continueWithBlock:^id(JEFuture *fut) {
-        XCTAssertTrue([fut isCancelled]);
-        return @3;
-    }];
-    
-    [p setCancelled];
-    XCTAssertTrue([f2 hasResult]);
-    XCTAssertEqualObjects([f2 result], @(3));
 }
 
 - (void)test_GivenPromises_WhenAllPromisesSucceeded_ThenWhenAllFutureHasResult
