@@ -14,7 +14,7 @@
     id _result;
     NSError *_error;
     BOOL _cancelled;
-    JEFutureVoidContinuation _continuation;
+    JEContinuation _continuation;
     JEFutureState _state;
 }
 
@@ -163,7 +163,7 @@
     return _error;
 }
 
-- (void)setContinuation:(JEFutureVoidContinuation)continuation
+- (void)setContinuation:(JEContinuation)continuation
 {
     [self.cv lock];
     NSAssert(_continuation == nil, @"Continuation already attached");
@@ -179,7 +179,7 @@
     }
 }
 
-- (void)onQueue:(dispatch_queue_t)queue setContinuation:(JEFutureVoidContinuation)continuation
+- (void)onQueue:(dispatch_queue_t)queue setContinuation:(JEContinuation)continuation
 {
     [self setContinuation:^(JEFuture *fut)
     {
@@ -187,32 +187,6 @@
             continuation(fut);
         });
     }];
-}
-
-- (JEFuture *)continueWithBlock:(JEContinuation)block
-{
-    JEPromise *p = [JEPromise new];
-    
-    [self setContinuation:^(JEFuture *fut)
-     {
-         id result = block(fut);
-         [p setResult:result];
-     }];
-    
-    return [p future];
-}
-
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withBlock:(JEContinuation)block
-{
-    JEPromise *p = [JEPromise new];
-    
-    [self onQueue:queue setContinuation:^(JEFuture *fut)
-    {
-        id result = block(fut);
-        [p setResult:result];
-    }];
-    
-    return [p future];
 }
 
 - (JEFuture *)continueWithTask:(JETask)task
@@ -240,46 +214,6 @@
         [f2 setContinuation:^(JEFuture *fut2) {
             [p setResolutionOfFuture:fut2];
         }];
-    }];
-    
-    return [p future];
-}
-
-- (JEFuture *)continueWithSuccessBlock:(JESuccessContinuation)successBlock
-{
-    JEPromise *p = [JEPromise new];
-    
-    [self setContinuation:^(JEFuture *fut) {
-        if ([fut hasResult])
-        {
-            id result = successBlock([fut result]);
-            [p setResult:result];
-        }
-        else
-        {
-            [p setResolutionOfFuture:fut];
-        }
-    }];
-    
-    return [p future];
-}
-
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessBlock:(JESuccessContinuation)successBlock
-{
-    JEPromise *p = [JEPromise new];
-    
-    [self setContinuation:^(JEFuture *fut) {
-        if ([fut hasResult])
-        {
-            dispatch_async(queue, ^{
-                id result = successBlock([fut result]);
-                [p setResult:result];
-            });
-        }
-        else
-        {
-            [p setResolutionOfFuture:fut];
-        }
     }];
     
     return [p future];
@@ -342,13 +276,13 @@
     for (NSInteger idx = 0; idx < futures.count; ++idx)
     {
         JEFuture *f = [futures objectAtIndex:idx];
-        [f continueWithBlock:^id(JEFuture *fut) {
+        [f continueWithTask:^JEFuture *(JEFuture *fut) {
             
             if (OSAtomicDecrement32(&counter) == 0)
             {
                 [p setResult:results];
             }
-            return [NSNull null];
+            return [JEFuture futureWithResult:[NSNull null]];
         }];
     }
     
@@ -365,7 +299,7 @@
     
     _result = value;
     _state = JEFutureStateResolvedWithResult;
-    JEFutureVoidContinuation continuation = _continuation;
+    JEContinuation continuation = _continuation;
     _continuation = nil;
     
     [self.cv signal];
@@ -384,7 +318,7 @@
     
     _error = error;
     _state = JEFutureStateResolvedWithError;
-    JEFutureVoidContinuation continuation = _continuation;
+    JEContinuation continuation = _continuation;
     _continuation = nil;
     
     [self.cv signal];
@@ -403,7 +337,7 @@
     
     _cancelled = YES;
     _state = JEFutureStateResolvedWithCancellation;
-    JEFutureVoidContinuation continuation = _continuation;
+    JEContinuation continuation = _continuation;
     _continuation = nil;
     
     [self.cv signal];
