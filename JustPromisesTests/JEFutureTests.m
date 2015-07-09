@@ -113,10 +113,9 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-                   {
-                       [p setResult:@1];
-                   });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
+        [p setResult:@1];
+    });
     
     XCTAssertEqualObjects([f result], @1);
 }
@@ -127,10 +126,9 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-                   {
-                       [p setResult:@1];
-                   });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
+        [p setResult:@1];
+    });
     
     [f wait];
     XCTAssertTrue([f hasResult]);
@@ -170,11 +168,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     XCTestExpectation *exp = [self expectationWithDescription:@"test expectation"];
-    [f setContinuation:^(JEFuture *fut)
-     {
-         XCTAssertEqual([fut result], @123);
-         [exp fulfill];
-     }];
+    [f setContinuation:^(JEFuture *fut) {
+        XCTAssertEqual([fut result], @123);
+        [exp fulfill];
+    }];
     
     [p setResult:@123];
     [self waitForExpectationsWithTimeout:10 handler:nil];
@@ -188,15 +185,14 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTestExpectation *exp = [self expectationWithDescription:@"test expectation"];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    [f onQueue:queue setContinuation:^(JEFuture *fut)
-     {
-         XCTAssertEqual([fut result], @123);
+    [f onQueue:queue setContinuation:^(JEFuture *fut) {
+        XCTAssertEqual([fut result], @123);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-         XCTAssertEqual(queue, dispatch_get_current_queue());
+        XCTAssertEqual(queue, dispatch_get_current_queue());
 #pragma clang diagnostic pop
-         [exp fulfill];
-     }];
+        [exp fulfill];
+    }];
     
     [p setResult:@123];
     [self waitForExpectationsWithTimeout:10 handler:nil];
@@ -242,10 +238,9 @@ static NSString *const kTestErrorDomain = @"TestError";
         JEPromise *p = [JEPromise new];
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-                       {
-                           [p setResult:@([[fut result] intValue] * 2)];
-                       });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
+            [p setResult:@([[fut result] intValue] * 2)];
+        });
         
         return [p future];
     }];
@@ -424,6 +419,7 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f2 = [f continueOnQueue:queue withSuccessTask:^JEFuture *(id val) {
         return [JEFuture cancelledFuture];
     }];
+    
     [p setResult:@1];
     
     [f2 wait];
