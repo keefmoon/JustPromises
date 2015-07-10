@@ -511,5 +511,13 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
 }
 
+- (void)test_GivenPromise_WhenSettingFutureContinuationTwice_ThenExceptionIsThrown
+{
+    JEPromise *p = [JEPromise new];
+    [[p future] setContinuation:^(JEFuture *fut) { }];
+    XCTAssertThrows([[p future] setContinuation:^(JEFuture *fut) { }]);
+    [p setResult:@42];
+}
+
 @end
 
