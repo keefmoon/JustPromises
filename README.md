@@ -2,7 +2,7 @@
 
 ![](./logo.png)
 
-A lightweight and thread-safe implementation of Promises & Futures in Objective-C for iOS and OS X.
+A lightweight and thread-safe implementation of Promises & Futures in Objective-C for iOS and OS X with 100% code coverage.
 
 #Overview
 
@@ -61,6 +61,22 @@ Versions with the ability to specify the queue
 ``` objective-c
 - (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withTask:(JETask)task;
 - (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessTask:(JESuccessTask)successTask;
+```
+
+In version 2.0 of the library we added support for the dot-notation to allow a nicer and a more square bracket-free code.
+
+```objective-c
+- (void (^)(JEContinuation))continues;
+- (void (^)(JEContinuation))continueOnMainQueue;
+- (void (^)(dispatch_queue_t q, JEContinuation))continueOnQueue;
+
+- (JEFuture* (^)(JETask task))continueWithTask;
+- (JEFuture* (^)(JETask task))continueWithTaskOnMainQueue;
+- (JEFuture* (^)(dispatch_queue_t q, JETask task))continueWithTaskOnQueue;
+
+- (JEFuture* (^)(JESuccessTask task))continueWithSuccessTask;
+- (JEFuture* (^)(JESuccessTask task))continueWithSuccessTaskOnMainQueue;
+- (JEFuture* (^)(dispatch_queue_t q, JESuccessTask task))continueWithSuccessTaskOnQueue;
 ```
 
 ###Wrapping an asynchronous API
@@ -126,6 +142,24 @@ Here we set the continuation, executed either way, acts as a finally block.
     // code that need to be executed either way
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }];
+```
+
+or if you like it, in the dot-notation flavour:
+
+``` objective-c
+__weak typeof(self) weakSelf = self;
+NSURLRequest *request = ...
+
+[self downloadJSONWithRequest:request].continueWithSuccessTaskOnQueue(queue, ^JEFuture* (NSData *jsonData) {
+    return [weakSelf parseJSON:jsonData];
+}).continueWithSuccessTask(^JEFuture* (NSDictionary *jsonDict) {
+    return [weakSelf saveToDisk:jsonDict];
+}).continueOnMainQueue(^(JEFuture *fut) {
+    if ([fut hasError]) {
+        NSLog(@"Something failed along the way with error: %@", [[fut error] description]);
+    }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+});
 ```
 
 Generally, you should avoid to store future objects in local variables. Doing so, it would make the chaining less explicit and it would be too easy to set multiple continuations on the same future (which will cause assertion to fail).
