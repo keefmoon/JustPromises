@@ -113,10 +113,9 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-                   {
-                       [p setResult:@1];
-                   });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
+        [p setResult:@1];
+    });
     
     XCTAssertEqualObjects([f result], @1);
 }
@@ -127,10 +126,9 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-                   {
-                       [p setResult:@1];
-                   });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
+        [p setResult:@1];
+    });
     
     [f wait];
     XCTAssertTrue([f hasResult]);
@@ -170,8 +168,7 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEFuture *f = [p future];
     
     XCTestExpectation *exp = [self expectationWithDescription:@"test expectation"];
-    [f setContinuation:^(JEFuture *fut)
-    {
+    [f setContinuation:^(JEFuture *fut) {
         XCTAssertEqual([fut result], @123);
         [exp fulfill];
     }];
@@ -188,14 +185,13 @@ static NSString *const kTestErrorDomain = @"TestError";
     XCTestExpectation *exp = [self expectationWithDescription:@"test expectation"];
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    [f onQueue:queue setContinuation:^(JEFuture *fut)
-     {
-         XCTAssertEqual([fut result], @123);
+    [f onQueue:queue setContinuation:^(JEFuture *fut) {
+        XCTAssertEqual([fut result], @123);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-         XCTAssertEqual(queue, dispatch_get_current_queue());
+        XCTAssertEqual(queue, dispatch_get_current_queue());
 #pragma clang diagnostic pop
-         [exp fulfill];
+        [exp fulfill];
     }];
     
     [p setResult:@123];
@@ -207,14 +203,11 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         JEPromise *p = [JEPromise new];
         [p setResult:@([[fut result] intValue] * 2)];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    }];
     
     [p setResult:@(1)];
     XCTAssertTrue([f2 hasResult]);
@@ -226,13 +219,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         JEPromise *p = [JEPromise new];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    }];
     
     [p setResult:@(1)];
     XCTAssertTrue([f2 hasError]);
@@ -244,20 +234,16 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask asynchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         JEPromise *p = [JEPromise new];
         
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^
-        {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), queue, ^{
             [p setResult:@([[fut result] intValue] * 2)];
         });
         
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:asynchronousTask];
+    }];
     
     [p setResult:@(1)];
     [f2 wait];
@@ -270,13 +256,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         XCTAssertTrue([fut hasResult]);
         return [JEFuture futureWithResolutionOfFuture:fut];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    }];
     
     [p setResult:@42];
     XCTAssertTrue([f2 hasResult]);
@@ -288,13 +271,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         XCTAssertTrue([fut hasError]);
         return [JEFuture futureWithResolutionOfFuture:fut];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    }];
     
     [p setError:[NSError errorWithDomain:@"TestError" code:0 userInfo:nil]];
     XCTAssertTrue([f2 hasError]);
@@ -306,13 +286,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueWithTask:^JEFuture *(JEFuture *fut) {
         XCTAssertTrue([fut isCancelled]);
         return [JEFuture futureWithResolutionOfFuture:fut];
-    };
-    
-    JEFuture *f2 = [f continueWithTask:synchronousTask];
+    }];
     
     [p setCancelled];
     XCTAssertTrue([f2 isCancelled]);
@@ -325,18 +302,15 @@ static NSString *const kTestErrorDomain = @"TestError";
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    JETask synchronousTask = ^JEFuture* (JEFuture *fut)
-    {
+    JEFuture *f2 = [f continueOnQueue:queue withTask:^JEFuture *(JEFuture *fut) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         XCTAssertEqual(queue, dispatch_get_current_queue());
 #pragma clang diagnostic pop
         JEPromise *p = [JEPromise new];
         [p setResult:@([[fut result] intValue] * 2)];
-        return [p future];;
-    };
-    
-    JEFuture *f2 = [f continueOnQueue:queue withTask:synchronousTask];
+        return [p future];
+    }];
     
     [p setResult:@(1)];
     
@@ -350,14 +324,11 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueWithSuccessTask:^JEFuture *(id val) {
         JEPromise *p = [JEPromise new];
         [p setResult:@([val intValue] * 2)];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithSuccessTask:synchronousTask];
+    }];
     
     [p setResult:@(1)];
     XCTAssertTrue([f2 hasResult]);
@@ -369,14 +340,11 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueWithSuccessTask:^JEFuture *(id val) {
         JEPromise *p = [JEPromise new];
         [p setResult:@([val intValue] * 2)];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithSuccessTask:synchronousTask];
+    }];
     
     NSError *error = [NSError errorWithDomain:kTestErrorDomain code:0 userInfo:nil];
     [p setError:error];
@@ -390,15 +358,12 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueWithSuccessTask:^JEFuture *(id val) {
         XCTAssert(NO, @"This block should not be called");
         JEPromise *p = [JEPromise new];
         [p setResult:@([val intValue] * 2)];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueWithSuccessTask:synchronousTask];
+    }];
     
     [p setCancelled];
     XCTAssertTrue([f2 isCancelled]);
@@ -410,12 +375,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     JEPromise *p = [JEPromise new];
     JEFuture *f = [p future];
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueWithSuccessTask:^JEFuture *(id val) {
         return [JEFuture cancelledFuture];
-    };
+    }];
     
-    JEFuture *f2 = [f continueWithSuccessTask:synchronousTask];
     [p setResult:@1];
     
     XCTAssertTrue([f2 isCancelled]);
@@ -429,8 +392,7 @@ static NSString *const kTestErrorDomain = @"TestError";
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueOnQueue:queue withSuccessTask:^JEFuture *(id val) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         XCTAssertEqual(queue, dispatch_get_current_queue());
@@ -438,9 +400,7 @@ static NSString *const kTestErrorDomain = @"TestError";
         JEPromise *p = [JEPromise new];
         [p setResult:@([val intValue] * 2)];
         return [p future];
-    };
-    
-    JEFuture *f2 = [f continueOnQueue:queue withSuccessTask:synchronousTask];
+    }];
     
     [p setResult:@1];
     
@@ -456,12 +416,10 @@ static NSString *const kTestErrorDomain = @"TestError";
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     
-    JESuccessTask synchronousTask = ^JEFuture* (NSNumber *val)
-    {
+    JEFuture *f2 = [f continueOnQueue:queue withSuccessTask:^JEFuture *(id val) {
         return [JEFuture cancelledFuture];
-    };
+    }];
     
-    JEFuture *f2 = [f continueOnQueue:queue withSuccessTask:synchronousTask];
     [p setResult:@1];
     
     [f2 wait];
@@ -551,6 +509,14 @@ static NSString *const kTestErrorDomain = @"TestError";
     NSString *testValue = [@"Resolved with cancellation" lowercaseString];
     NSString *targetValue = [[p description] lowercaseString];
     XCTAssertTrue([targetValue rangeOfString:testValue].location != NSNotFound);
+}
+
+- (void)test_GivenPromise_WhenSettingFutureContinuationTwice_ThenExceptionIsThrown
+{
+    JEPromise *p = [JEPromise new];
+    [[p future] setContinuation:^(JEFuture *fut) { }];
+    XCTAssertThrows([[p future] setContinuation:^(JEFuture *fut) { }]);
+    [p setResult:@42];
 }
 
 @end

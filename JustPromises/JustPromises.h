@@ -7,4 +7,5 @@
 //
 
 #import "JEFuture.h"
+#import "JEFuture+JEDotNotation.h"
 #import "JEProgress.h"

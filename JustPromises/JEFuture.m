@@ -1,6 +1,6 @@
 //
 //  JEFuture.m
-//  JustEat
+//  JustPromises
 //
 //  Created by Marek Rogosz on 26/11/2014.
 //  Copyright (c) 2014 JUST EAT. All rights reserved.
@@ -166,7 +166,15 @@
 - (void)setContinuation:(JEContinuation)continuation
 {
     [self.cv lock];
-    NSAssert(_continuation == nil, @"Continuation already attached");
+    
+    if (_continuation != nil)
+    {        
+        [self.cv unlock];
+        NSException *e = [NSException exceptionWithName:@"Cannot set continuation."
+                                                 reason:@"Continuation already attached."
+                                               userInfo:nil];
+        @throw e;
+    }
     
     _continuation = continuation;
     BOOL resolved = _state != JEFutureStateUnresolved;
