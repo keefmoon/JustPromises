@@ -1,6 +1,6 @@
 //
 //  JEFuture.m
-//  JustEat
+//  JustPromises
 //
 //  Created by Marek Rogosz on 26/11/2014.
 //  Copyright (c) 2014 JUST EAT. All rights reserved.
