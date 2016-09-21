@@ -436,7 +436,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromisesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustPromisesDemo.app/JustPromisesDemo";
 			};
 			name = Debug;
 		};
@@ -451,7 +450,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromisesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JustPromisesDemo.app/JustPromisesDemo";
 			};
 			name = Release;
 		};
@@ -567,6 +565,15 @@
 			buildConfigurations = (
 				72E1F6CF1A275A0A00F2DB7F /* Debug */,
 				72E1F6D01A275A0A00F2DB7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B361374D1D6F05DF008917AF /* Build configuration list for PBXNativeTarget "JustPromises watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B361374B1D6F05DF008917AF /* Debug */,
+				B361374C1D6F05DF008917AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
