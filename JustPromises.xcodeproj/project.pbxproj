@@ -23,6 +23,7 @@
 		4FCF53A01B47F5480025D30D /* JEFuture+JEDotNotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCF539E1B47F5480025D30D /* JEFuture+JEDotNotation.h */; };
 		4FCF53A11B47F5480025D30D /* JEFuture+JEDotNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF539F1B47F5480025D30D /* JEFuture+JEDotNotation.m */; };
 		4FCF53A31B47F5820025D30D /* JEFuture_DotNotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */; };
+		B361374A1D6F05DF008917AF /* JustPromises watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = B36137481D6F05DF008917AF /* JustPromises watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		4FCF539E1B47F5480025D30D /* JEFuture+JEDotNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JEFuture+JEDotNotation.h"; sourceTree = "<group>"; };
 		4FCF539F1B47F5480025D30D /* JEFuture+JEDotNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JEFuture+JEDotNotation.m"; sourceTree = "<group>"; };
 		4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture_DotNotationTests.m; sourceTree = "<group>"; };
+		B36137461D6F05DF008917AF /* JustPromises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JustPromises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B36137481D6F05DF008917AF /* JustPromises watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustPromises watchOS.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FBCFFE81B46DC9F007BD426 /* JustPromises.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B36137421D6F05DF008917AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +149,7 @@
 				4FBCFFFC1B46DCE2007BD426 /* JustPromises */,
 				4FBC00091B46DD1B007BD426 /* JustPromisesTests */,
 				4F74B0E11B47CF6500595442 /* JustPromisesDEMO */,
+				B36137471D6F05DF008917AF /* JustPromises watchOS */,
 				72E1F6BE1A275A0A00F2DB7F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -149,8 +160,17 @@
 				4FBCFFDE1B46DC9F007BD426 /* JustPromises.framework */,
 				4FBCFFE71B46DC9F007BD426 /* JustPromisesTests.xctest */,
 				4F74B0AE1B47CD0300595442 /* JustPromisesDEMO.app */,
+				B36137461D6F05DF008917AF /* JustPromises.framework */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B36137471D6F05DF008917AF /* JustPromises watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				B36137481D6F05DF008917AF /* JustPromises watchOS.h */,
+			);
+			path = "JustPromises watchOS";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +184,14 @@
 				4FCF53A01B47F5480025D30D /* JEFuture+JEDotNotation.h in Headers */,
 				4FBC00061B46DCE2007BD426 /* JEProgress.h in Headers */,
 				4FBC00041B46DCE2007BD426 /* JEFuture.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B36137431D6F05DF008917AF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B361374A1D6F05DF008917AF /* JustPromises watchOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +251,24 @@
 			productReference = 4FBCFFE71B46DC9F007BD426 /* JustPromisesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		B36137451D6F05DF008917AF /* JustPromises watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B361374D1D6F05DF008917AF /* Build configuration list for PBXNativeTarget "JustPromises watchOS" */;
+			buildPhases = (
+				B36137411D6F05DF008917AF /* Sources */,
+				B36137421D6F05DF008917AF /* Frameworks */,
+				B36137431D6F05DF008917AF /* Headers */,
+				B36137441D6F05DF008917AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "JustPromises watchOS";
+			productName = "JustPromises watchOS";
+			productReference = B36137461D6F05DF008917AF /* JustPromises.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -242,6 +288,10 @@
 						CreatedOnToolsVersion = 7.0;
 						TestTargetID = 4F35A55F1A6FCD1E008B3A04;
 					};
+					B36137451D6F05DF008917AF = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 72E1F6B81A275A0A00F2DB7F /* Build configuration list for PBXProject "JustPromises" */;
@@ -260,6 +310,7 @@
 				4FBCFFDD1B46DC9F007BD426 /* JustPromises */,
 				4FBCFFE61B46DC9F007BD426 /* JustPromisesTests */,
 				4F74B0AD1B47CD0300595442 /* JustPromisesDEMO */,
+				B36137451D6F05DF008917AF /* JustPromises watchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -281,6 +332,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4FBCFFE51B46DC9F007BD426 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B36137441D6F05DF008917AF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -317,6 +375,13 @@
 				4FBC000E1B46DD1B007BD426 /* JEFutureTests.m in Sources */,
 				4FCF53A31B47F5820025D30D /* JEFuture_DotNotationTests.m in Sources */,
 				4FBC000F1B46DD1B007BD426 /* JEProgressTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B36137411D6F05DF008917AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +592,69 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B361374B1D6F05DF008917AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromises/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
+				PRODUCT_NAME = JustPromises;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		B361374C1D6F05DF008917AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = JustPromises/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
+				PRODUCT_NAME = JustPromises;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
