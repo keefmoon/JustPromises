@@ -98,16 +98,16 @@ Pod::Spec.new do |s|
 
   s.subspec "Objective-C" do |sub|
     sub.source_files = "JustPromises/**/*.{h,m}"
-    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '2.3' }
+    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
   end
 
   s.subspec "Swift" do |sub|
     sub.source_files = "JustPromiseSwift/**/*.{h,m,swift}"
-    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '2.3' }
+    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
   end
 
   # ――― Swift Version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '2.3' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #

@@ -17,7 +17,7 @@ import Foundation
  *               AsyncOperation should be subclassed, not used directly. Subclasses should override start() without calling super.
  *               Subclasses are reasonable for calling didStart() and didFinish() as appropriate, to ensure state is updated and observers are informed.
  */
-public class AsyncOperation: NSOperation {
+open class AsyncOperation: Operation {
     
     // MARK: - State Reporting
     
@@ -27,15 +27,15 @@ public class AsyncOperation: NSOperation {
         case isCancelled = "isCancelled"
     }
     
-    private enum ExecutionState {
-        case Initial, Executing, Cancelled, Finished
+    fileprivate enum ExecutionState {
+        case initial, executing, cancelled, finished
     }
     
-    private var _executionState: ExecutionState = .Initial
+    fileprivate var _executionState: ExecutionState = .initial
     
-    private var executionState: ExecutionState {
+    fileprivate var executionState: ExecutionState {
         get {
-            var state: ExecutionState = .Initial
+            var state: ExecutionState = .initial
             objc_sync_enter(self)
             state = self._executionState
             objc_sync_exit(self)
@@ -55,59 +55,59 @@ public class AsyncOperation: NSOperation {
         }
     }
     
-    private func triggerWillKVOFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
+    fileprivate func triggerWillKVOFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
         
         switch newState {
-        case .Executing:
-            willChangeValueForKey(KeyPath.isExecuting.rawValue)
-        case .Cancelled:
-            if oldState == .Executing {
-                willChangeValueForKey(KeyPath.isExecuting.rawValue)
+        case .executing:
+            willChangeValue(forKey: KeyPath.isExecuting.rawValue)
+        case .cancelled:
+            if oldState == .executing {
+                willChangeValue(forKey: KeyPath.isExecuting.rawValue)
             }
-            willChangeValueForKey(KeyPath.isCancelled.rawValue)
-            willChangeValueForKey(KeyPath.isFinished.rawValue)
-        case .Finished:
-            if oldState == .Executing {
-                willChangeValueForKey(KeyPath.isExecuting.rawValue)
+            willChangeValue(forKey: KeyPath.isCancelled.rawValue)
+            willChangeValue(forKey: KeyPath.isFinished.rawValue)
+        case .finished:
+            if oldState == .executing {
+                willChangeValue(forKey: KeyPath.isExecuting.rawValue)
             }
-            willChangeValueForKey(KeyPath.isFinished.rawValue)
-        case .Initial:
+            willChangeValue(forKey: KeyPath.isFinished.rawValue)
+        case .initial:
             return
         }
     }
     
-    private func triggerDidKVOFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
+    fileprivate func triggerDidKVOFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
         
         switch newState {
-        case .Executing:
-            didChangeValueForKey(KeyPath.isExecuting.rawValue)
-        case .Cancelled:
-            if oldState == .Executing {
-                didChangeValueForKey(KeyPath.isExecuting.rawValue)
+        case .executing:
+            didChangeValue(forKey: KeyPath.isExecuting.rawValue)
+        case .cancelled:
+            if oldState == .executing {
+                didChangeValue(forKey: KeyPath.isExecuting.rawValue)
             }
-            didChangeValueForKey(KeyPath.isCancelled.rawValue)
-            didChangeValueForKey(KeyPath.isFinished.rawValue)
-        case .Finished:
-            if oldState == .Executing {
-                didChangeValueForKey(KeyPath.isExecuting.rawValue)
+            didChangeValue(forKey: KeyPath.isCancelled.rawValue)
+            didChangeValue(forKey: KeyPath.isFinished.rawValue)
+        case .finished:
+            if oldState == .executing {
+                didChangeValue(forKey: KeyPath.isExecuting.rawValue)
             }
-            didChangeValueForKey(KeyPath.isFinished.rawValue)
-        case .Initial:
+            didChangeValue(forKey: KeyPath.isFinished.rawValue)
+        case .initial:
             return
         }
         
     }
     
-    private func canTransitionFromState(from oldState: ExecutionState, toState newState: ExecutionState) -> Bool {
+    fileprivate func canTransitionFromState(from oldState: ExecutionState, toState newState: ExecutionState) -> Bool {
         
         switch (oldState, newState) {
             
         case (let oldState, let newState) where oldState == newState:
             return false
             
-        case (_, .Initial),
-             (.Finished, _),
-             (.Cancelled, _):
+        case (_, .initial),
+             (.finished, _),
+             (.cancelled, _):
             return false
             
         default:
@@ -115,62 +115,62 @@ public class AsyncOperation: NSOperation {
         }
     }
     
-    private func transitionFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
+    fileprivate func transitionFromState(from oldState: ExecutionState, toState newState: ExecutionState) {
         
         switch newState {
-        case .Executing:
-            self._executionState = .Executing
-        case .Cancelled:
-            self._executionState = .Cancelled
-        case .Finished:
-            self._executionState = .Finished
-        case .Initial:
+        case .executing:
+            self._executionState = .executing
+        case .cancelled:
+            self._executionState = .cancelled
+        case .finished:
+            self._executionState = .finished
+        case .initial:
             return
         }
     }
     
-    override public var asynchronous: Bool {
+    override open var isAsynchronous: Bool {
         return true
     }
     
-    override public var executing: Bool {
-        return self.executionState == .Executing
+    override open var isExecuting: Bool {
+        return self.executionState == .executing
     }
     
-    override public var finished: Bool {
-        return self.executionState == .Cancelled || self.executionState == .Finished
+    override open var isFinished: Bool {
+        return self.executionState == .cancelled || self.executionState == .finished
     }
     
-    override public var cancelled: Bool {
-        return self.executionState == .Cancelled
+    override open var isCancelled: Bool {
+        return self.executionState == .cancelled
     }
     
     // MARK: - Execution
     
-    override public func start() {
-        guard !cancelled && !finished else {
+    override open func start() {
+        guard !isCancelled && !isFinished else {
             return
         }
-        self.executionState = .Executing
+        self.executionState = .executing
         execute()
     }
     
     /**
      Subclasses should override execute() and begin it's asynchronous work within it's implementation. Subclasses should not implement start(), as it's implementation in AsyncOperations handles state transition.
      */
-    public func execute() {
+    open func execute() {
         fatalError("Should be overriden by subclass")
     }
     
     // MARK: - Finishing
     
-    public func finish() {
-        self.executionState = .Finished
+    open func finish() {
+        self.executionState = .finished
     }
     
     // MARK: - Cancellation
     
-    override public func cancel() {
-        self.executionState = .Cancelled
+    override open func cancel() {
+        self.executionState = .cancelled
     }
 }
