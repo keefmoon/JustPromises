@@ -36,8 +36,6 @@ func downloadJSON(with request: URLRequest) -> Promise<Data> {
         
         let fetchDataTask = session.dataTask(with: request) { (data, response, error) in
             
-            print("Before: \(promise): State: \(promise.futureState)")
-            
             switch (data, error) {
                 
             case (let data?, _):
@@ -49,8 +47,6 @@ func downloadJSON(with request: URLRequest) -> Promise<Data> {
             case (nil, nil):
                 promise.futureState = .error(DownloadError.noResponseData)
             }
-            
-            print("After: \(promise): State: \(promise.futureState)")
         }
         fetchDataTask.resume()
     }

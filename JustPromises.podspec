@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "JustPromises", "JustPromises/**/*.{h,m}", "JustPromiseSwift/**/*.{h,m,swift}"
-  s.exclude_files = "JustPromises/Exclude"
+  s.exclude_files = "JustPromises/Exclude", "JustPromiseSwift/*.playground"
 
   # s.public_header_files = "JustPromises/**/*.h"
 
@@ -104,6 +104,7 @@ Pod::Spec.new do |s|
   s.subspec "Swift" do |sub|
     sub.source_files = "JustPromiseSwift/**/*.{h,m,swift}"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+    sub.exclude_files = "JustPromiseSwift/*.playground"
   end
 
   # ――― Swift Version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

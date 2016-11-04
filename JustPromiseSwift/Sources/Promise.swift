@@ -91,7 +91,6 @@ public class Promise<FutureType>: AsyncOperation {
 
 extension Promise {
     
-    
     /// The promise will be added to the given queue.
     ///
     /// - parameter queue: The queue to await the promise on.
@@ -101,7 +100,6 @@ extension Promise {
         queue.addOperation(self)
         return self
     }
-    
     
     /// The promise will be added to the main queue.
     ///
@@ -232,7 +230,6 @@ extension Promise {
 }
 
 extension Array where Element: Operation {
-    
     
     /// Continue after all these operations are finished with a Promise
     ///
