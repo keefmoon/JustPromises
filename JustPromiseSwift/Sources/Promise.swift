@@ -42,7 +42,7 @@ public let sharedPromiseQueue = OperationQueue()
 /// A promise to fulfill try and fulfill a future value.
 /// Built onto of Operations, so can be combined with other operations,
 /// added to queues and used as a dependancy.
-public class Promise<FutureType>: AsyncOperation {
+open class Promise<FutureType>: AsyncOperation {
     
     fileprivate var executionBlock: (Promise<FutureType>) -> Void
     
@@ -78,7 +78,7 @@ public class Promise<FutureType>: AsyncOperation {
     }
     
     /// Should not be called directly. This will fire the execution block.
-    override public func execute() {
+    override open func execute() {
         executionBlock(self)
     }
     
