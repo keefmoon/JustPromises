@@ -82,6 +82,8 @@
 		4FCF539E1B47F5480025D30D /* JEFuture+JEDotNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JEFuture+JEDotNotation.h"; sourceTree = "<group>"; };
 		4FCF539F1B47F5480025D30D /* JEFuture+JEDotNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JEFuture+JEDotNotation.m"; sourceTree = "<group>"; };
 		4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture_DotNotationTests.m; sourceTree = "<group>"; };
+		B13CA05B1DD0D81900E4F710 /* README_ObjC.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_ObjC.md; sourceTree = "<group>"; };
+		B13CA05C1DD0D82C00E4F710 /* README_Swift.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Swift.md; sourceTree = "<group>"; };
 		B1F1FD951DCB4216000385BF /* Example.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Example.playground; sourceTree = "<group>"; };
 		B36137461D6F05DF008917AF /* JustPromises.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JustPromises.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B36137481D6F05DF008917AF /* JustPromises watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JustPromises watchOS.h"; sourceTree = "<group>"; };
@@ -210,6 +212,8 @@
 			children = (
 				4F8D5A5A1A7104FF004179C0 /* LICENSE.md */,
 				4F8D5A5B1A7104FF004179C0 /* README.md */,
+				B13CA05B1DD0D81900E4F710 /* README_ObjC.md */,
+				B13CA05C1DD0D82C00E4F710 /* README_Swift.md */,
 				4F35A55B1A6FBD15008B3A04 /* JustPromises.podspec */,
 				4FBCFFFC1B46DCE2007BD426 /* JustPromises */,
 				4FBC00091B46DD1B007BD426 /* JustPromisesTests */,
