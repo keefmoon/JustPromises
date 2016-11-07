@@ -63,13 +63,13 @@ func parseJSONDataToDictionary(from downloadPromise: Promise<Data>) -> Promise<[
         switch downloadPromise.futureState {
             
         case .unresolved:
-            return promise.futureState = .unresolved
+            promise.futureState = .unresolved
             
         case .cancelled:
-            return promise.futureState = .cancelled
+            promise.futureState = .cancelled
             
         case .error(let error):
-            return promise.futureState = .error(error)
+            promise.futureState = .error(error)
             
         case .result(let downloadedData):
             
@@ -86,6 +86,52 @@ func parseJSONDataToDictionary(from downloadPromise: Promise<Data>) -> Promise<[
     }
 }
 
+struct Venue {
+    let id: String
+    let name: String
+}
+
+enum MappingError: Error {
+    case unexpectedResponse
+}
+
+func mapToVenue(from parsedPromise: Promise<[String: AnyObject]>) -> Promise<[Venue]> {
+    
+    return Promise<[Venue]> { promise in
+        
+        switch parsedPromise.futureState {
+            
+        case .unresolved:
+            promise.futureState = .unresolved
+            
+        case .cancelled:
+            promise.futureState = .cancelled
+            
+        case .error(let error):
+            promise.futureState = .error(error)
+            
+        case .result(let parsedDictionary):
+            print(parsedDictionary)
+            
+            guard let response = parsedDictionary["response"] as? [String: Any], let venuesArray = response["venues"] as? [[String: Any]] else {
+                promise.futureState = .error(MappingError.unexpectedResponse)
+                return
+            }
+            
+            let venues = venuesArray.flatMap { dictionary -> Venue? in
+             
+                guard let id = dictionary["id"] as? String, let name = dictionary["name"] as? String else {
+                    return nil
+                }
+                return Venue(id: id, name: name)
+            }
+            
+            promise.futureState = .result(venues)
+        }
+    }
+    
+}
+
 // MARK: Use Promises to Search for restaurants
 
 let request = createFoursquareRequest(withQuery: "sushi")
@@ -94,13 +140,13 @@ downloadJSON(with: request).await().continuation { downloadPromise -> Promise<[S
     
     return parseJSONDataToDictionary(from: downloadPromise)
 
+}.continuation { parsedPromise -> Promise<[Venue]> in
+ 
+    return mapToVenue(from: parsedPromise)
+    
 }.continuationOnMainQueue { parsedPromise in
     
-    guard let restaurantInfo = parsedPromise.futureState.result else {
-        print("There was a problem getting the information")
-        return
-    }
+    let venues = parsedPromise.futureState.result
     
-    print("Result: \(restaurantInfo)")
     PlaygroundPage.current.finishExecution()
 }
