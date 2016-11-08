@@ -99,8 +99,9 @@ There are multiple ways that you can use a continuation:
 
 Each continuation will take an operation queue to perform on, by default it will use a shared background queue.
 
+
+####Continue with next Promise
 ```
-// Continue with next Promise
 networkPromise.continuation { previousPromise in
     
     let nextPromise = Promise<UIImage> { promise in
@@ -123,8 +124,10 @@ networkPromise.continuation { previousPromise in
     }
     return nextPromise
 }
+```
 
-// Handle result and allow further chaining
+####Handle result and allow further chaining
+```
 networkPromise.continuationWithResult(onQueue: .main) { result in
 
     let image = UIImage(data: result)!
@@ -137,8 +140,10 @@ networkPromise.continuationWithResult(onQueue: .main) { result in
     }
     return nextPromise
 }
+```
 
-// Handle error and allow further chaining
+####Handle error and allow further chaining
+```
 networkPromise.continuationWithError(onQueue: .main) { error in
 
     print(error)
@@ -150,8 +155,10 @@ networkPromise.continuationWithError(onQueue: .main) { error in
     }
     return nextPromise
 }
+```
 
-// Handle the outcome of the promise without further chaining.
+####Handle the outcome of the promise without further chaining
+``` 
 networkPromise.continuation(onQueue: .main) { promise in
 
     // Do something with outcome of promise
@@ -160,7 +167,35 @@ networkPromise.continuation(onQueue: .main) { promise in
 
 ```
 
-TODO: Explain and examples of array extension
+###Continuation from a group of Promises
+
+You can also add a continuation on an array of `Promise`s, and in fact an array of any `Operation`s. This continuation can return a `Promise` to allow chaining of further `Promise`s, or just be a self contained block for execution.
+
+####Continue Operation Array with new Promise
+```
+let promises: [Operation] = [fetchHousePricesPromise, fetchCrimeDataPromise]
+
+let dataMergePromise = promises.continuation() {
+    
+    return Promise<CLLocation> { promise in
+        
+        // Calculation best value property location
+        promise.futureState = .result(somewhere)
+    }
+}
+
+```
+
+####Continue Operation Array with Block
+```
+let promises: [Operation] = [parallelTask1, parallelTask2]
+
+promises.continuation() {
+
+    print("All tasks completed")
+}
+
+```
 
 
 ##Other implementations
