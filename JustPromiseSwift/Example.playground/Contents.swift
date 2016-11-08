@@ -92,6 +92,7 @@ struct Venue {
 }
 
 enum MappingError: Error {
+    case previousPromiseDidNotReturnResult
     case unexpectedResponse
 }
 
@@ -99,35 +100,30 @@ func mapToVenue(from parsedPromise: Promise<[String: AnyObject]>) -> Promise<[Ve
     
     return Promise<[Venue]> { promise in
         
-        switch parsedPromise.futureState {
+        guard let parsedDictionary = parsedPromise.futureState.result else {
+            promise.futureState = .error(MappingError.previousPromiseDidNotReturnResult)
+            return
+        }
+        
+        print(parsedDictionary)
+        
+        guard
+            let response = parsedDictionary["response"] as? [String: Any],
+            let venuesArray = response["venues"] as? [[String: Any]] else {
             
-        case .unresolved:
-            promise.futureState = .unresolved
-            
-        case .cancelled:
-            promise.futureState = .cancelled
-            
-        case .error(let error):
-            promise.futureState = .error(error)
-            
-        case .result(let parsedDictionary):
-            print(parsedDictionary)
-            
-            guard let response = parsedDictionary["response"] as? [String: Any], let venuesArray = response["venues"] as? [[String: Any]] else {
                 promise.futureState = .error(MappingError.unexpectedResponse)
                 return
-            }
-            
-            let venues = venuesArray.flatMap { dictionary -> Venue? in
-             
-                guard let id = dictionary["id"] as? String, let name = dictionary["name"] as? String else {
-                    return nil
-                }
-                return Venue(id: id, name: name)
-            }
-            
-            promise.futureState = .result(venues)
         }
+        
+        let venues = venuesArray.flatMap { dictionary -> Venue? in
+            
+            guard let id = dictionary["id"] as? String, let name = dictionary["name"] as? String else {
+                return nil
+            }
+            return Venue(id: id, name: name)
+        }
+        
+        promise.futureState = .result(venues)
     }
     
 }
@@ -136,17 +132,23 @@ func mapToVenue(from parsedPromise: Promise<[String: AnyObject]>) -> Promise<[Ve
 
 let request = createFoursquareRequest(withQuery: "sushi")
 
-downloadJSON(with: request).await().continuation { downloadPromise -> Promise<[String:AnyObject]> in
+downloadJSON(with: request).await().continuation { downloadPromise in
     
     return parseJSONDataToDictionary(from: downloadPromise)
-
-}.continuation { parsedPromise -> Promise<[Venue]> in
- 
-    return mapToVenue(from: parsedPromise)
     
-}.continuationOnMainQueue { parsedPromise in
-    
-    let venues = parsedPromise.futureState.result
-    
-    PlaygroundPage.current.finishExecution()
+    }.continuation { (parsedPromise) in
+        
+        return mapToVenue(from: parsedPromise)
+        
+    }.continuationWithResult(onQueue: .main) { venues in
+        
+        print("Number of sushi restaurants: \(venues.count)")
+        
+    }.continuationWithError() { error in
+        
+        print("There was an error: \(error)")
+        
+    }.continuation(onQueue: .main) { _ in
+        
+        PlaygroundPage.current.finishExecution()
 }

@@ -1,6 +1,6 @@
 #JustPromiseSwift
 
-![](./logo.png)
+![](./JustPromises_logo.jpg)
 
 A lightweight and thread-safe implementation of Promises & Futures in Swift 3 for iOS and OS X with 100% code coverage.
 
@@ -12,15 +12,15 @@ Asynchronous tasks can succeed, fail or be cancelled and the resolution is refle
 
 Promises are useful to standardize the API of asynchronous operations. They help both to clean up asynchronous code paths and simplify error handling.
 
-The main features of JustPromises are listed below.
+The main features of JustPromises for Swift are listed below.
 
 1. Fully unit-tested and documented
 2. Thread-safe
 3. Clean interface
 4. Support for chaining
-5. Support for progress
 6. Support for cancellation
-7. Queue-based block execution if needed
+7. Operation based
+8. Generics used to better result typing
 
 More information at [the Wikipedia page](http://en.wikipedia.org/wiki/Futures_and_promises).
 
@@ -34,267 +34,134 @@ pod 'JustPromises/Swift'
 
 In your .swift files:
 ```
-import "JustPromises"
+import JustPromises
 ```
 
 ##Usage of Promise
 
-Please refer to the example Swift Playground to have an idea of how to use use Promises and chaing Promises together.
+Please refer to the example Swift Playground to have an idea of how to use use Promises and chaining Promises together.
 
 
 ###API Overview
 
-In our terminology, a `task` is intended to represent an asynchronous operation.
+A Promise is an asynchronous operation that will enventually resolve a future state. A Promise's `futureState` property will start in an unresolved state, but at some point in the future will update that state to be either:
 
-These methods set the continuation on the future providing a block and return the subsequent future.
-The block in the 'success' versions is called only when the previos future in the chain has a result (i.e. doesn't fail or is not cancelled).
+- Result: With some result value
+- Error: Providing the relevant error
+- Cancelled: `cancel()` was called before the Promise could complete.
 
-The followings should be used for asynchronous operations that return a future straightaway.
-The block parameter returns the future, representing the async operation.
+`Promise` has a generic constraint that defineds the type of result that is expected, for instance a promise that retrived an image from a network resource might be have the type `Promise<UIImage>`.
 
-``` objective-c
-- (JEFuture *)continueWithTask:(JEFuture *(^)(JEFuture *fut))task;
-- (JEFuture *)continueWithSuccessTask:(JEFuture *(^)(id result))successTask;
+A `Promise` is instantiated by providing a block which will be fired when the Promise is executing, and the promise itself is provided as a parameter for convenience.
+
 ```
+let networkPromise = Promise<Data> { promise in
 
-Versions with the ability to specify the queue
-``` objective-c
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withTask:(JETask)task;
-- (JEFuture *)continueOnQueue:(dispatch_queue_t)queue withSuccessTask:(JESuccessTask)successTask;
-```
+    let url = URL(string: "https://imgs.xkcd.com/comics/api_2x.png")!
+    let fetchDataTask = session.dataTask(with: url) { (data, response, error) in
 
-In version 2.0 of the library we added support for the dot-notation to allow a nicer and a more square bracket-free code.
+        switch (data, error) {
 
-```objective-c
-- (void (^)(JEContinuation))continues;
-- (void (^)(JEContinuation))continueOnMainQueue;
-- (void (^)(dispatch_queue_t q, JEContinuation))continueOnQueue;
+        case (let data?, _):
+            promise.futureState = .result(data)
 
-- (JEFuture* (^)(JETask task))continueWithTask;
-- (JEFuture* (^)(JETask task))continueWithTaskOnMainQueue;
-- (JEFuture* (^)(dispatch_queue_t q, JETask task))continueWithTaskOnQueue;
+        case (nil, let error?):
+            promise.futureState = .error(error)
 
-- (JEFuture* (^)(JESuccessTask task))continueWithSuccessTask;
-- (JEFuture* (^)(JESuccessTask task))continueWithSuccessTaskOnMainQueue;
-- (JEFuture* (^)(dispatch_queue_t q, JESuccessTask task))continueWithSuccessTaskOnQueue;
-```
-
-###Wrapping an asynchronous API
-
-By nature, futures are very useful when they wrap asynchronous operation rather than synchronous ones.
-Here is an example of how to wrap an existing asynchronous API.
-
-``` objective-c
-- (JEFuture *)wrappedAsyncMethod
-{
-JEPromise *p = [JEPromise new];
-[SomeClass asyncMethodWithCompletionHandler:^(id result, NSError *error) {
-if (error) {
-[p setError:error];
-}
-else {
-[p setResult:result];
-}
-}];
-return [p future];
+        case (nil, nil):
+            promise.futureState = .error(DownloadError.noResponseData)
+        }
+    }
+    fetchDataTask.resume()
 }
 ```
 
-Consider the task of retrieving information from a remote API. It can be broken down into the following sequence of operations:
+A `Promise` is an `Operation` subclass, and as such has all the power of `Operation` available, including reporting on execution state, can be added to queues, and have cross-queue dependancies set up. 
 
-1. Download JSON content.
-2. Parse the content.
-3. Save the content to disk.
-
-All the operations are asynchronous.
-
-Here is an example of chaining the operations.
-
-``` objective-c
-__weak typeof(self) weakSelf = self;
-NSURLRequest *request = ...
-
-[self downloadJSONWithRequest:request] continueOnQueue:queue
-withSuccessTask:^JEFuture *(NSData *jsonData)
-{
-return [weakSelf parseJSON:jsonData];
-}]
+A `Promise` is created in a non executing state, and must be added to a queue to begin executing, this can be done using the `await` convenience methods.
+```
+networkPromise.await()
+networkPromise.awaitOnMainQueue()
+let queue = OperationQueue()
+networkPromise.await(onQueue: queue)
 ```
 
-Here we continue the chaining setting the continuation providing the result of the previous future
+###Continuation
 
-``` objective-c
-...] continueWithSuccessTask:^JEFuture *(NSDictionary *jsonDict)
-{
-return [weakSelf saveToDisk:jsonDict];
-}]
+Work can be done after a `Promise` has finished by using a continuation.
+
+There are multiple ways that you can use a continuation:
+
+- Provide a new Promise that uses the outcome of the previous Promise
+- Provide a block to be executed if the Promise has a result (Further `Promise`s can be chained after this)
+- Provide a block to be executed if the Promise has a error (Further `Promise`s can be chained after this)
+- Provide a block to be executed once the promise is finished.
+
+Each continuation will take an operation queue to perform on, by default it will use a shared background queue.
+
 ```
+// Continue with next Promise
+networkPromise.continuation { previousPromise in
+    
+    let nextPromise = Promise<UIImage> { promise in
 
-Here we set the continuation, executed either way, acts as a finally block.
+        switch previousPromise.futureState {
 
-``` objective-c
-...] onQueue:mainQueue setContinuation:^(JEFuture *fut)
-{
-if ([fut hasError]) {
-NSLog(@"Something failed along the way with error: %@", [[fut error] description]);
+        case .unresolved:
+            promise.futureState = .unresolved
+
+        case .cancelled:
+            promise.futureState = .cancelled
+
+        case .error(let error):
+            promise.futureState = .error(error)
+
+        case .result(let downloadedData):
+            let image = UIImage(data: downloadedData)!
+            promise.futureState = .result(image)
+        }
+    }
+    return nextPromise
 }
 
-// code that need to be executed either way
-[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}];
-```
+// Handle result and allow further chaining
+networkPromise.continuationWithResult(onQueue: .main) { result in
 
-or if you like it, in the dot-notation flavour:
+    let image = UIImage(data: result)!
+    // Show image
 
-``` objective-c
-__weak typeof(self) weakSelf = self;
-NSURLRequest *request = ...
+}.continuation { previousPromise in
 
-[self downloadJSONWithRequest:request].continueWithSuccessTaskOnQueue(queue, ^JEFuture* (NSData *jsonData) {
-return [weakSelf parseJSON:jsonData];
-}).continueWithSuccessTask(^JEFuture* (NSDictionary *jsonDict) {
-return [weakSelf saveToDisk:jsonDict];
-}).continueOnMainQueue(^(JEFuture *fut) {
-if ([fut hasError]) {
-NSLog(@"Something failed along the way with error: %@", [[fut error] description]);
-}
-[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-});
-```
-
-Generally, you should avoid to store future objects in local variables. Doing so, it would make the chaining less explicit and it would be too easy to set multiple continuations on the same future (which will cause assertion to fail).
-
-Here is the implementation for `downloadJSONWithRequest:`. Check the demo project for the implementations of `parseJSON:` and `saveToDisk:`, they are similar to the one below.
-
-``` objective-c
-- (JEFuture *)downloadJSONWithRequest:(NSURLRequest *)request
-{
-JEPromise *p = [JEPromise new];
-
-NSURLSessionDataTask *fetchDataTask = [self.session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-{
-if (!error) {
-if (data) {
-[p setResult:data];
-}
-else {
-NSError *errorToUse = [NSError errorWithDomain:kPromisesDemoErrorDomain
-code:0
-userInfo:@{NSLocalizedDescriptionKey: @"Data received is nil."}];
-[p setError:errorToUse];
-}
-}
-else {
-[p setError:error];
-}
-}];
-
-[fetchDataTask resume];
-
-return [p future];
-}
-```  
-
-
-###whenAll:
-
-The `whenAll:` class method returns a future that is resolved only when all the passed in futures are resolved. Once this method is called, it's not possible to add further continuations to the futures passed in.
-This is particularly useful when dealing with different tasks that have dependencies between each other or in cases that lead to the usage of GCD's `dispatch_group()` to synchronize tasks.
-
-Here is an example:
-
-``` objective-c
-JEPromise *p1 = [JEPromise new];
-JEPromise *p2 = [JEPromise new];
-JEPromise *p3 = [JEPromise new];
-
-NSArray *futures = @[p1.future,
-p2.future,
-p3.future,
-[self downloadJSONWithRequest:...
-];
-JEFuture *allFuture = [JEFuture whenAll:futures];
-
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-// pretend this is a succeeding network operation
-[p1 setResult:[NSData data]];
-});
-
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-// pretend this is an failing network operation
-NSError *error = [NSError errorWithDomain:...];
-[p2 setError:error];
-});
-
-dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-// pretend this is a cancelled network operation
-[p3 setCancelled];
-});
-
-// this call will hang until all the futures are resolved
-NSArray *results = [allFuture result];
-
-for (JEFuture *future in results)
-{
-NSLog(@"%ld", (long)[future state]);
+    let nextPromise = Promise<UIImage> { networkPromise in
+        // Transform the data in some way to produce different image ...
+    }
+    return nextPromise
 }
 
-// will print
-// JEFutureStateResolvedWithResult
-// JEFutureStateResolvedWithError
-// JEFutureStateResolvedWithCancellation
-// JEFutureStateResolvedWithResult or JEFutureStateResolvedWithError depending on how downloadJSONWithRequest: goes
-```
+// Handle error and allow further chaining
+networkPromise.continuationWithError(onQueue: .main) { error in
 
-##Usage of JEProgress
+    print(error)
 
-`JEProgress` helps tracking the progress of asynchronous tasks. It provides a progress description, the completed unit count out of total and a state.
+}.continuation { previousPromise in
 
-``` objective-c
+    let nextPromise = Promise<UIImage> { networkPromise in
+        // Transform the data in some way to produce different image ...
+    }
+    return nextPromise
+}
 
-JEProgress *p = [JEProgress new];
+// Handle the outcome of the promise without further chaining.
+networkPromise.continuation(onQueue: .main) { promise in
 
-[p setCancellationHandler:^(id<JECancellableProgressProtocol> progress) {
-// called when the progress is cancelled
-}];
+    // Do something with outcome of promise
 
-[p setProgressHandler:^(JEProgress *progress) {
-// called on progress update
-}];
-
-[p setProgressDescriptionHandler:^(JEProgress *progress) {
-// called when the description is updated
-}];
+}
 
 ```
 
-You usually use this object in asynchronous operations like so:
+TODO: Explain and examples of array extension
 
-``` objective-c
-
-JEProgress *p = [JEProgress new];
-
-[p updateState:JERequestStateNetworkRequestStarted];
-
-[self downloadWithProgress:^(NSUInteger bytesWritten, NSUInteger totalBytes, NSError *error)
-{
-if (!error) {
-[p updateCompletedUnitCount:bytesWritten total:totalBytes];
-
-if (bytesWritten < totalBytes) {
-[p updateProgressDescription:@"Downloading..."];
-}
-else {
-[p updateState:JERequestStateNetworkRequestComplete];
-[p updateProgressDescription:@"Download completed!"];
-}
-}
-else {
-[p updateState:JERequestStateNetworkRequestFailed];
-}
-}];
-
-```
 
 ##Other implementations
 

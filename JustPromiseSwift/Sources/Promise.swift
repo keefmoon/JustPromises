@@ -125,57 +125,25 @@ extension Promise {
         return nextPromise
     }
     
-    /// Continue after this Promise with a given block
+    /// Continue after this Promise if it has a result, passing through the future state for further chaining
     ///
     /// - parameter queue:          The queue to continue on
-    /// - parameter executionBlock: The block to execute after this Promise
-    public func continuation(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
+    /// - parameter executionBlock: A block to handle the result of the promise
+    ///
+    /// - returns: The next Promise, with the same future state as the previous Promise. Allows further chaining.
+    @discardableResult
+    public func continuationWithResult(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (FutureType) -> Void) -> Promise<FutureType> {
         
-        let operaton = BlockOperation { [weak self] in
-            guard let strongSelf = self else { return }
-            executionBlock(strongSelf)
-        }
-        operaton.addDependency(self)
-        queue.addOperation(operaton)
-    }
-    
-    /// Continue after this Promise with another Promise on the main queue
-    ///
-    /// - parameter executionBlock: The block to create and return the next Promise
-    ///
-    /// - returns: The next created Promise, allows chaining.
-    public func continuationOnMainQueue<NextFutureType>(withBlock executionBlock: (Promise<FutureType>) -> Promise<NextFutureType>) -> Promise<NextFutureType> {
-        return continuation(onQueue: .main, withBlock: executionBlock)
-    }
-    
-    /// Continue after this Promise a given block on the main queue
-    ///
-    /// - parameter executionBlock: The block to execute after this Promise
-    public func continuationOnMainQueue(withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
-        continuation(onQueue: .main, withBlock: executionBlock)
-    }
-    
-    /// Continue after this Promise if it succeeds with another Promise
-    ///
-    /// - parameter queue:          The queue to continue on
-    /// - parameter executionBlock: The block to create and return the next Promise
-    ///
-    /// - returns: The next created Promise, allows chaining
-    public func continuationOnSuccess<NextFutureType>(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: (Promise<FutureType>) -> Promise<NextFutureType>) -> Promise<NextFutureType> {
-        
-        let nextPromise = executionBlock(self)
-        
-        let existingBlock = nextPromise.executionBlock
-        
-        nextPromise.executionBlock = { [weak self] promise in
+        let nextPromise = Promise<FutureType> { [weak self] promise in
             
             guard let strongSelf = self else { return }
             
             // If we have a result, execute the block, otherwise inherit the previous promise's state
             switch strongSelf.futureState {
-            
-            case .result(_):
-                existingBlock(promise)
+                
+            case .result(let result):
+                executionBlock(result)
+                promise.futureState = .result(result)
                 
             case .cancelled:
                 promise.futureState = .cancelled
@@ -192,40 +160,53 @@ extension Promise {
         return nextPromise
     }
     
-    /// Continue after this Promise if it succeeds, with a given block on the given queue
+    /// Continue after this Promise if it has an error, passing through the future state for further chaining
     ///
     /// - parameter queue:          The queue to continue on
-    /// - parameter executionBlock: The block to execute after this Promise
-    public func continuationOnSuccess(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
+    /// - parameter executionBlock: The block to create and return the next Promise, which is given the error of the previous Promise
+    ///
+    /// - returns: The next Promise, with the same future state as the previous Promise. Allows further chaining.
+    @discardableResult
+    public func continuationWithError(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (Error) -> Void) -> Promise<FutureType> {
         
-        let operaton = BlockOperation { [weak self] in
+        let nextPromise = Promise<FutureType> { [weak self] promise in
             
             guard let strongSelf = self else { return }
             
             // If we have a result, execute the block, otherwise inherit the previous promise's state
             switch strongSelf.futureState {
-            case .result(_): executionBlock(strongSelf)
-            default: break
+                
+            case .result(let result):
+                promise.futureState = .result(result)
+                
+            case .cancelled:
+                promise.futureState = .cancelled
+                
+            case .unresolved:
+                promise.futureState = .unresolved
+                
+            case .error(let error):
+                executionBlock(error)
+                promise.futureState = .error(error)
             }
+        }
+        nextPromise.addDependency(self)
+        queue.addOperation(nextPromise)
+        return nextPromise
+    }
+    
+    /// Continue after this Promise with a given block
+    ///
+    /// - parameter queue:          The queue to continue on
+    /// - parameter executionBlock: The block to execute after this Promise, which is given the previous Promise
+    public func continuation(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
+        
+        let operaton = BlockOperation { [weak self] in
+            guard let strongSelf = self else { return }
+            executionBlock(strongSelf)
         }
         operaton.addDependency(self)
         queue.addOperation(operaton)
-    }
-    
-    /// Continue after this Promise if it succeeds with another Promise
-    ///
-    /// - parameter executionBlock: The block to create and return the next Promise
-    ///
-    /// - returns: The next created Promise, allows chaining
-    public func continuationOnSuccessOnMainQueue<NextFutureType>(withBlock executionBlock: (Promise<FutureType>) -> Promise<NextFutureType>) -> Promise<NextFutureType> {
-        return continuationOnSuccess(onQueue: .main, withBlock: executionBlock)
-    }
-    
-    /// Continue after this Promise if it succeeds, with a given block on the main queue
-    ///
-    /// - parameter executionBlock: The block to execute after this Promise
-    public func continuationOnSuccessOnMainQueue(withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
-        continuationOnSuccess(onQueue: .main, withBlock: executionBlock)
     }
 }
 
@@ -259,21 +240,5 @@ extension Array where Element: Operation {
             operation.addDependency(operation)
         }
         queue.addOperation(operaton)
-    }
-    
-    /// Continue after all these operations are finished with a Promise on given queue
-    ///
-    /// - parameter executionBlock: The block to create and return the next Promise
-    ///
-    /// - returns: The next created Promise, allows chaining
-    public func continuationOnMainQueue<NextFutureType>(withBlock executionBlock: () -> Promise<NextFutureType>) -> Promise<NextFutureType> {
-        return continuation(onQueue: .main, withBlock: executionBlock)
-    }
-    
-    /// Continue after all these operations are finished with a Promise on main queue
-    ///
-    /// - parameter executionBlock: The block to execute after all operations are finished
-    public func continuationOnMainQueue(withBlock executionBlock: @escaping () -> Void) {
-        continuation(onQueue: .main, withBlock: executionBlock)
     }
 }

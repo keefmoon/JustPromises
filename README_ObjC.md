@@ -12,7 +12,7 @@ Asynchronous tasks can succeed, fail or be cancelled and the resolution is refle
 
 Promises are useful to standardize the API of asynchronous operations. They help both to clean up asynchronous code paths and simplify error handling.
 
-The main features of JustPromises are listed below.
+The main features of JustPromises for Objective-C are listed below.
 
 1. Fully unit-tested and documented
 2. Thread-safe
