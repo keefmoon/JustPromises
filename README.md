@@ -10,7 +10,7 @@ Asynchronous tasks can succeed, fail or be cancelled and the resolution is refle
 
 Promises are useful to standardize the API of asynchronous operations. They help both to clean up asynchronous code paths and simplify error handling.
 
-##Installing - Cocopods
+##Installing via Cocoapods
 
 To import just the Swift version of JustPromises, in your Podfile:
 ```
