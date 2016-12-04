@@ -66,7 +66,7 @@
 		4F74B0E81B47CF6500595442 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4F74B0EE1B47CFD100595442 /* JEDemoExamples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEDemoExamples.h; sourceTree = "<group>"; };
 		4F74B0EF1B47CFD100595442 /* JEDemoExamples.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEDemoExamples.m; sourceTree = "<group>"; };
-		4F8D5A5A1A7104FF004179C0 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		4F8D5A5A1A7104FF004179C0 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		4F8D5A5B1A7104FF004179C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4FBC00001B46DCE2007BD426 /* JEProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JEProgress.h; sourceTree = "<group>"; };
 		4FBC00011B46DCE2007BD426 /* JEProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEProgress.m; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 		72E1F6B41A275A0A00F2DB7F = {
 			isa = PBXGroup;
 			children = (
-				4F8D5A5A1A7104FF004179C0 /* LICENSE.md */,
+				4F8D5A5A1A7104FF004179C0 /* LICENSE */,
 				4F8D5A5B1A7104FF004179C0 /* README.md */,
 				B13CA05B1DD0D81900E4F710 /* README_ObjC.md */,
 				B13CA05C1DD0D82C00E4F710 /* README_Swift.md */,

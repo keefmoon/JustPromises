@@ -40,7 +40,7 @@ Pod::Spec.new do |s|
   #
 
   s.license      = "Apache License, Version 2.0"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  # s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com" }
+  s.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com", "Keith Moon" => "keith.moon@just-eat.com" }
   # Or just: s.author    = "name surname"
   s.social_media_url   = "http://twitter.com/justeat_tech"
 
@@ -99,12 +99,14 @@ Pod::Spec.new do |s|
   s.subspec "Objective-C" do |sub|
     sub.source_files = "JustPromises/**/*.{h,m}"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+    sub.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com" }
   end
 
   s.subspec "Swift" do |sub|
-    sub.source_files = "JustPromiseSwift/**/*.{h,m,swift}"
+    sub.source_files        = "JustPromiseSwift/**/*.{h,m,swift}"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
-    sub.exclude_files = "JustPromiseSwift/*.playground/**/**"
+    sub.exclude_files       = "JustPromiseSwift/*.playground/**/**"
+    sub.authors             = { "Keith Moon" => "keith.moon@just-eat.com" }
   end
 
   # ――― Swift Version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

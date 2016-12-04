@@ -48,7 +48,7 @@ A Promise is an asynchronous operation that will enventually resolve a future st
 - Error: Providing the relevant error
 - Cancelled: `cancel()` was called before the Promise could complete.
 
-`Promise` has a generic constraint that defineds the type of result that is expected, for instance a promise that retrived an image from a network resource might be have the type `Promise<UIImage>`.
+`Promise` has a generic constraint that defines the type of result that is expected, for instance a promise that retrived an image from a network resource might have the type `Promise<UIImage>`.
 
 A `Promise` is instantiated by providing a block which will be fired when the Promise is executing, and the promise itself is provided as a parameter for convenience.
 
@@ -214,4 +214,4 @@ Don't bother submitting any breaking changes or anything without unit tests agai
 
 JustPromises is released under the Apache 2.0 License.
 
--JUST EAT iOS Team
+- Just Eat
