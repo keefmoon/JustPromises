@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "Apache License, Version 2.0"
-  # s.license      = { :type => "MIT", :file => "LICENSE" }
+  #s.license      = "Apache License, Version 2.0"
+  s.license      = { :type => "Apache License, Version 2.0", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -70,6 +70,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.7"
   s.watchos.deployment_target = "3.0"
+  s.tvos.deployment_target = "9.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,8 +90,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "JustPromises", "JustPromises/**/*.{h,m}", "JustPromiseSwift/**/*.{h,m,swift}"
-  s.exclude_files = "JustPromises/Exclude", "JustPromiseSwift/*.playground/**/**"
+  s.source_files  = "JustPromises", "JustPromises/**/*.{h,m}", "JustPromisesSwift/Source/*.swift"
+  s.exclude_files = "JustPromises/Exclude", "JustPromisesSwift/*.playground/**/**"
 
   # s.public_header_files = "JustPromises/**/*.h"
 
@@ -103,9 +104,9 @@ Pod::Spec.new do |s|
   end
 
   s.subspec "Swift" do |sub|
-    sub.source_files        = "JustPromiseSwift/**/*.{h,m,swift}"
+    sub.source_files        = "JustPromisesSwift/Sources/*.swift"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
-    sub.exclude_files       = "JustPromiseSwift/*.playground/**/**"
+    sub.exclude_files       = "JustPromisesSwift/*.playground/**/**"
     sub.authors             = { "Keith Moon" => "keith.moon@just-eat.com" }
   end
 

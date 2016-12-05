@@ -2,7 +2,7 @@
 
 import Foundation
 import PlaygroundSupport
-import JustPromiseSwift
+import JustPromisesSwift_iOS
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 

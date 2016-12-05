@@ -1,14 +1,18 @@
 //
-//  PromiseTests.swift
-//  JustPromises
+//  JustPromisesSwift_tvOSTests.swift
+//  JustPromisesSwift_tvOSTests
 //
-//  Created by Keith Moon on 12/09/2016.
+//  Created by Keith Moon on 04/12/2016.
 //  Copyright © 2016 JUST EAT. All rights reserved.
 //
 
 import XCTest
 import Foundation
-import JustPromiseSwift
+import JustPromisesSwift_tvOS
+
+enum TestError: Error {
+    case somethingWentWrong
+}
 
 class PromiseTests: XCTestCase {
     
@@ -29,7 +33,7 @@ class PromiseTests: XCTestCase {
         let _ = Promise<Void> { promise in
             promise.futureState = .result()
             asyncExpectation.fulfill()
-        }.await()
+            }.await()
         
         waitForExpectations(timeout: 3.0) { error in
             XCTAssertNil(error)
@@ -47,7 +51,7 @@ class PromiseTests: XCTestCase {
             
             promise.futureState = .result()
             asyncExpectation.fulfill()
-        }.awaitOnMainQueue()
+            }.awaitOnMainQueue()
         
         waitForExpectations(timeout: 3.0) { error in
             XCTAssertNil(error)
@@ -93,7 +97,7 @@ class PromiseTests: XCTestCase {
             promise.futureState = .result()
             asyncExpectation1.fulfill()
             
-            }.await().continuationOnMainQueue { previousPromise in
+            }.await().continuation(onQueue: .main) { previousPromise in
                 
                 return Promise<Void> { promise in
                     
@@ -104,7 +108,7 @@ class PromiseTests: XCTestCase {
                     asyncExpectation2.fulfill()
                 }
                 
-            }.continuationOnMainQueue { _ in
+            }.continuation(onQueue: .main) { _ in
                 
                 let onMainQueue = Thread.current.isMainThread
                 XCTAssertTrue(onMainQueue)
@@ -121,24 +125,18 @@ class PromiseTests: XCTestCase {
         
         let asyncExpectation1 = expectation(description: "Await execution")
         let asyncExpectation2 = expectation(description: "Await execution")
-        let asyncExpectation3 = expectation(description: "Await execution")
         
-        let _ = Promise<Void> { promise in
+        let _ = Promise<Bool> { promise in
             
-            promise.futureState = .result()
+            // Complete with result
+            promise.futureState = .result(true)
             asyncExpectation1.fulfill()
             
-            }.await().continuationOnSuccess { previousPromise in
+            }.await().continuationWithResult() { result in
                 
-                return Promise<Void> { promise in
-                    
-                    promise.futureState = .result()
-                    asyncExpectation2.fulfill()
-                }
-                
-            }.continuationOnSuccess { _ in
-                
-                asyncExpectation3.fulfill()
+                // This block fires with the result of the previous block
+                XCTAssertTrue(result)
+                asyncExpectation2.fulfill()
         }
         
         waitForExpectations(timeout: 3.0) { error in
@@ -148,25 +146,20 @@ class PromiseTests: XCTestCase {
     
     func testPromiseContinuedOnSuccessDoesntExecuteIfFailed() {
         
-        enum TestError: Error {
-            case somethingWentWrong
-        }
-        
         let asyncExpectation1 = expectation(description: "Await execution")
         let asyncExpectation2 = expectation(description: "Await execution")
         
-        let _ = Promise<Void> { promise in
+        let _ = Promise<Bool> { promise in
             
+            // Complete promise with errpr
             promise.futureState = .error(TestError.somethingWentWrong)
             asyncExpectation1.fulfill()
             
-            }.await().continuationOnSuccess { previousPromise in
+            }.await().continuationWithResult() { result in
                 
-                return Promise<Void> { promise in
-                    
-                    promise.futureState = .result()
-                    XCTFail()
-                }
+                // The block shouldn't execute because
+                // previous Promise completed with error.
+                XCTFail()
                 
             }.continuation { _ in
                 
@@ -178,68 +171,54 @@ class PromiseTests: XCTestCase {
         }
     }
     
-    func testPromiseFinalContinuedOnSuccessDoesntExecuteIfFailed() {
-        
-        enum TestError: Error {
-            case somethingWentWrong
-        }
+    func testPromiseCanBeContinuedOnError() {
         
         let asyncExpectation1 = expectation(description: "Await execution")
         let asyncExpectation2 = expectation(description: "Await execution")
         
-        let _ = Promise<Void> { promise in
+        let _ = Promise<Bool> { promise in
             
-            promise.futureState = .result()
+            // Complete with error
+            promise.futureState = .error(TestError.somethingWentWrong)
             asyncExpectation1.fulfill()
             
-            }.await().continuationOnSuccess { previousPromise in
+            }.await().continuationWithError() { error in
                 
-                return Promise<Void> { promise in
-                    
-                    let error = TestError.somethingWentWrong
-                    promise.futureState = .error(error)
-                    asyncExpectation2.fulfill()
+                guard let testError = error as? TestError else {
+                    XCTFail()
+                    return
                 }
                 
-            }.continuationOnSuccess { promise in
-                
-                XCTFail()
+                // This block fires with the error of the previous block
+                XCTAssertTrue(testError == TestError.somethingWentWrong)
+                asyncExpectation2.fulfill()
         }
-        
         
         waitForExpectations(timeout: 3.0) { error in
             XCTAssertNil(error)
         }
     }
     
-    func testPromiseCanBeContinuedOnSuccessOnMainQueue() {
+    func testPromiseContinuedOnErrorDoesntExecuteIfSucceed() {
         
         let asyncExpectation1 = expectation(description: "Await execution")
         let asyncExpectation2 = expectation(description: "Await execution")
-        let asyncExpectation3 = expectation(description: "Await execution")
         
-        let _ = Promise<Void> { promise in
+        let _ = Promise<Bool> { promise in
             
-            promise.futureState = .result()
+            // Complete promise with result
+            promise.futureState = .result(true)
             asyncExpectation1.fulfill()
             
-            }.await().continuationOnSuccessOnMainQueue { previousPromise in
+            }.await().continuationWithError() { error in
                 
-                return Promise<Void> { promise in
-                    
-                    let onMainQueue = Thread.current.isMainThread
-                    XCTAssertTrue(onMainQueue)
-                    
-                    promise.futureState = .result()
-                    asyncExpectation2.fulfill()
-                }
+                // The block shouldn't execute because
+                // previous Promise completed with result.
+                XCTFail()
                 
-            }.continuationOnSuccessOnMainQueue { _ in
+            }.continuation { _ in
                 
-                let onMainQueue = Thread.current.isMainThread
-                XCTAssertTrue(onMainQueue)
-                
-                asyncExpectation3.fulfill()
+                asyncExpectation2.fulfill()
         }
         
         waitForExpectations(timeout: 3.0) { error in
