@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JustPromises"
-  s.version      = "2.0.0"
+  s.version      = "3.0.0"
   s.summary      = "A lightweight and thread-safe implementation of Promises & Futures in Objective-C for iOS and OS X."
 
   s.description  = <<-DESC
@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "Apache License, Version 2.0"
-  # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
+  #s.license      = "Apache License, Version 2.0"
+  s.license      = { :type => "Apache License, Version 2.0", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com" }
+  s.authors             = { "Just Eat iOS team" => "justeat.ios.team@gmail.com", "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com", "Keith Moon" => "keith.moon@just-eat.com" }
   # Or just: s.author    = "name surname"
   s.social_media_url   = "http://twitter.com/justeat_tech"
 
@@ -63,13 +63,14 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
-  # s.platform     = :ios, "5.0"
+  #s.platform     = :osx, "10.9"
+  #s.platform     = :ios, "8.0"
 
   #  When using multiple platforms
-  s.ios.deployment_target = "5.0"
-  s.osx.deployment_target = "10.7"
-  s.watchos.deployment_target = "3.0"
+  s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.9"
+  #s.watchos.deployment_target = "3.0"
+  s.tvos.deployment_target = "9.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -78,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/justeat/JustPromises.git", :tag => "2.0.0" }
+  s.source       = { :git => "https://github.com/justeat/JustPromises.git", :tag => "3.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -89,11 +90,30 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "JustPromises", "JustPromises/**/*.{h,m}"
-  s.exclude_files = "JustPromises/Exclude"
+  s.source_files  = "JustPromises", "JustPromises/**/*.{h,m}", "JustPromisesSwift/Source/*.swift"
+  s.exclude_files = "JustPromises/Exclude", "JustPromisesSwift/*.playground/**/**"
 
   # s.public_header_files = "JustPromises/**/*.h"
 
+  # --- SubSpec -----------
+
+  s.subspec "Objective-C" do |sub|
+    sub.source_files = "JustPromises/**/*.{h,m}"
+    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+  end
+
+  s.subspec "Swift" do |sub|
+    sub.source_files        = "JustPromisesSwift/Sources/*.swift"
+    sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+    sub.exclude_files       = "JustPromisesSwift/*.playground/**/**"
+    sub.ios.deployment_target = "8.0"
+    sub.osx.deployment_target = "10.9"
+    sub.watchos.deployment_target = "3.0"
+    sub.tvos.deployment_target = "9.0"
+  end
+
+  # ――― Swift Version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
