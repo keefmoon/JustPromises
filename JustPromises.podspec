@@ -53,7 +53,7 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com", "Keith Moon" => "keith.moon@just-eat.com" }
+  s.authors             = { "Just Eat iOS team" => "justeat.ios.team@gmail.com", "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com", "Keith Moon" => "keith.moon@just-eat.com" }
   # Or just: s.author    = "name surname"
   s.social_media_url   = "http://twitter.com/justeat_tech"
 

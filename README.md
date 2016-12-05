@@ -27,7 +27,7 @@ The legacy Objective-C version is still available. [Further details in the Objec
 
 
 
-##Other implementations
+## Other implementations
 
 These are some third-party libraries mainly used by the community.
 
@@ -36,15 +36,15 @@ These are some third-party libraries mainly used by the community.
 - [RXPromise](https://github.com/couchdeveloper/RXPromise)
 
 
-##Contributing
+## Contributing
 
 We've been adding things ONLY as they are needed, so please feel free to either bring up suggestions or to submit pull requests with new GENERIC functionalities.
 
 Don't bother submitting any breaking changes or anything without unit tests against it. It will be declined.
 
-##Licence
+## Licence
 
 JustPromises is released under the Apache 2.0 License.
 
--JUST EAT iOS Team
+- Just Eat iOS team
 
