@@ -1,6 +1,6 @@
 ![](JustPromises_logo.jpg)
 
-A lightweight and thread-safe implementation of Promises & Futures in Swift 3 for iOS and OS X with 100% code coverage.
+A lightweight and thread-safe implementation of Promises & Futures in Swift 3 for iOS, macOS, watchOS and tvOS with 100% code coverage.
 
 #Overview
 
