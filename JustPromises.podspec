@@ -100,14 +100,12 @@ Pod::Spec.new do |s|
   s.subspec "Objective-C" do |sub|
     sub.source_files = "JustPromises/**/*.{h,m}"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
-    sub.authors             = { "Marek Rogosz" => "marek.rogosz@just-eat.com", "Ben Chester" => "ben.chester@just-eat.com", "Alberto De Bortoli" => "alberto.debortoli@just-eat.com", "Pavol Polak" => "pavol.polak@just-eat.com" }
   end
 
   s.subspec "Swift" do |sub|
     sub.source_files        = "JustPromisesSwift/Sources/*.swift"
     sub.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
     sub.exclude_files       = "JustPromisesSwift/*.playground/**/**"
-    sub.authors             = { "Keith Moon" => "keith.moon@just-eat.com" }
   end
 
   # ――― Swift Version ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
