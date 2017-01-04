@@ -13,7 +13,7 @@ import Foundation
 ///
 /// - Unresolved: The promise has let to be resolved
 /// - Result:     There is a result, associated value is the result
-/// - Error:      There is an erroe, associated value is the error
+/// - Error:      There is an error, associated value is the error
 /// - Cancelled:  The promise was cancelled
 public enum FutureState<FutureType> {
     case unresolved
@@ -201,12 +201,12 @@ extension Promise {
     /// - parameter executionBlock: The block to execute after this Promise, which is given the previous Promise
     public func continuation(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping (Promise<FutureType>) -> Void) {
         
-        let operaton = BlockOperation { [weak self] in
+        let blockOperation = BlockOperation { [weak self] in
             guard let strongSelf = self else { return }
             executionBlock(strongSelf)
         }
-        operaton.addDependency(self)
-        queue.addOperation(operaton)
+        blockOperation.addDependency(self)
+        queue.addOperation(blockOperation)
     }
 }
 
@@ -235,10 +235,10 @@ extension Array where Element: Operation {
     /// - parameter executionBlock: The block to execute after all operations are finished
     public func continuation(onQueue queue: OperationQueue = sharedPromiseQueue, withBlock executionBlock: @escaping () -> Void) {
         
-        let operaton = BlockOperation(block: executionBlock)
+        let blockOperation = BlockOperation(block: executionBlock)
         for operation in self {
             operation.addDependency(operation)
         }
-        queue.addOperation(operaton)
+        queue.addOperation(blockOperation)
     }
 }
