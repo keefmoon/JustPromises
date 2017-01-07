@@ -9,6 +9,7 @@
 import XCTest
 import Foundation
 import JustPromisesSwift_iOS
+import Dispatch
 
 enum TestError: Error {
     case somethingWentWrong
@@ -257,13 +258,16 @@ class PromiseTests: XCTestCase {
         
         let promise = Promise<Bool>(executionBlock: { promise in
             
-            let didSucceed = fail4Times.tryToSucceed()
-            
-            if didSucceed {
-                promise.futureState = .result(true)
-            } else {
-                attempt = attempt + 1
-                promise.futureState = .error(Failed.attempt(attempt))
+            DispatchQueue.main.async {
+                
+                let didSucceed = fail4Times.tryToSucceed()
+                
+                if didSucceed {
+                    promise.futureState = .result(true)
+                } else {
+                    attempt = attempt + 1
+                    promise.futureState = .error(Failed.attempt(attempt))
+                }
             }
         })
         
@@ -292,13 +296,16 @@ class PromiseTests: XCTestCase {
         
         let promise = Promise<Bool>(executionBlock: { promise in
             
-            let didSucceed = fail6Times.tryToSucceed()
-            
-            if didSucceed {
-                promise.futureState = .result(true)
-            } else {
-                attempt = attempt + 1
-                promise.futureState = .error(Failed.attempt(attempt))
+            DispatchQueue.main.async {
+             
+                let didSucceed = fail6Times.tryToSucceed()
+                
+                if didSucceed {
+                    promise.futureState = .result(true)
+                } else {
+                    attempt = attempt + 1
+                    promise.futureState = .error(Failed.attempt(attempt))
+                }
             }
         })
         
