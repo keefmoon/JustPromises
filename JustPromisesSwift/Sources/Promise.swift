@@ -66,7 +66,7 @@ open class Promise<FutureType>: AsyncOperation {
     
     // Number of times to retry if error. Promise will retry until result or retries runout, in which case the 
     // last error is returned.
-    public var retryCount: Int = 0
+    public var retryCount: UInt = 0
     
     /// Create a promise with an execution block.
     ///
