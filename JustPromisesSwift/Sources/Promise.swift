@@ -49,12 +49,24 @@ open class Promise<FutureType>: AsyncOperation {
     /// The state of the promise that will potentially contain the fulfilled future
     public var futureState: FutureState<FutureType> = .unresolved {
         didSet {
-            switch futureState {
-            case .error(_), .result(_): finish()
-            default: break
+            switch (futureState, retryCount) {
+                
+            case (.error(_), let retry) where retry > 0:
+                retryCount = retryCount - 1
+                execute()
+                
+            case (.error(_), _), (.result(_), _):
+                finish()
+                
+            default:
+                break
             }
         }
     }
+    
+    // Number of times to retry if error. Promise will retry until result or retries runout, in which case the 
+    // last error is returned.
+    public var retryCount: UInt = 0
     
     /// Create a promise with an execution block.
     ///
