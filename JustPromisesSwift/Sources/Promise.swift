@@ -249,7 +249,7 @@ extension Array where Element: Operation {
         
         let blockOperation = BlockOperation(block: executionBlock)
         for operation in self {
-            operation.addDependency(operation)
+            blockOperation.addDependency(operation)
         }
         queue.addOperation(blockOperation)
     }
