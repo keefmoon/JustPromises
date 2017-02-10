@@ -11,11 +11,11 @@
 		2F5829341DF4A5CF0033C3D4 /* JustPromisesSwift_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F58292B1DF4A5CF0033C3D4 /* JustPromisesSwift_tvOS.framework */; };
 		2F5829501DF4A6040033C3D4 /* JustPromisesSwift_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F5829471DF4A6040033C3D4 /* JustPromisesSwift_macOS.framework */; };
 		2F58297E1DF4A7F20033C3D4 /* JustPromisesSwift_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F5829671DF4A7DE0033C3D4 /* JustPromisesSwift_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2F58297F1DF4A7F80033C3D4 /* JustPromisesSwift_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSTests.swift */; };
+		2F58297F1DF4A7F80033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift */; };
 		2F5829801DF4A8040033C3D4 /* JustPromisesSwift_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F58296E1DF4A7DE0033C3D4 /* JustPromisesSwift_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2F5829811DF4A80A0033C3D4 /* JustPromisesSwift_macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSTests.swift */; };
+		2F5829811DF4A80A0033C3D4 /* JustPromisesSwift_macOSPromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSPromiseTests.swift */; };
 		2F5829821DF4A8110033C3D4 /* JustPromisesSwift_tvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F5829751DF4A7DE0033C3D4 /* JustPromisesSwift_tvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2F5829831DF4A8150033C3D4 /* JustPromisesSwift_tvOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSTests.swift */; };
+		2F5829831DF4A8150033C3D4 /* JustPromisesSwift_tvOSPromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSPromiseTests.swift */; };
 		2F5829841DF4A81D0033C3D4 /* JustPromisesSwift_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F58297C1DF4A7DE0033C3D4 /* JustPromisesSwift_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2F5829851DF4A8280033C3D4 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829611DF4A7DE0033C3D4 /* AsyncOperation.swift */; };
 		2F5829861DF4A8280033C3D4 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5829621DF4A7DE0033C3D4 /* Promise.swift */; };
@@ -41,6 +41,9 @@
 		4FCF53A01B47F5480025D30D /* JEFuture+JEDotNotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCF539E1B47F5480025D30D /* JEFuture+JEDotNotation.h */; };
 		4FCF53A11B47F5480025D30D /* JEFuture+JEDotNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF539F1B47F5480025D30D /* JEFuture+JEDotNotation.m */; };
 		4FCF53A31B47F5820025D30D /* JEFuture_DotNotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */; };
+		B1FA8F9D1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */; };
+		B1FA8F9F1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8F9E1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift */; };
+		B1FA8FA11E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8FA01E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,15 +91,15 @@
 		2F5829661DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F5829671DF4A7DE0033C3D4 /* JustPromisesSwift_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustPromisesSwift_iOS.h; sourceTree = "<group>"; };
 		2F5829691DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_iOSTests.swift; sourceTree = "<group>"; };
+		2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_iOSPromiseTests.swift; sourceTree = "<group>"; };
 		2F58296D1DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F58296E1DF4A7DE0033C3D4 /* JustPromisesSwift_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustPromisesSwift_macOS.h; sourceTree = "<group>"; };
 		2F5829701DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_macOSTests.swift; sourceTree = "<group>"; };
+		2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSPromiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_macOSPromiseTests.swift; sourceTree = "<group>"; };
 		2F5829741DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F5829751DF4A7DE0033C3D4 /* JustPromisesSwift_tvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustPromisesSwift_tvOS.h; sourceTree = "<group>"; };
 		2F5829771DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_tvOSTests.swift; sourceTree = "<group>"; };
+		2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSPromiseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_tvOSPromiseTests.swift; sourceTree = "<group>"; };
 		2F58297B1DF4A7DE0033C3D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F58297C1DF4A7DE0033C3D4 /* JustPromisesSwift_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JustPromisesSwift_watchOS.h; sourceTree = "<group>"; };
 		4F35A55B1A6FBD15008B3A04 /* JustPromises.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = JustPromises.podspec; sourceTree = "<group>"; };
@@ -126,6 +129,9 @@
 		4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture_DotNotationTests.m; sourceTree = "<group>"; };
 		B13CA05B1DD0D81900E4F710 /* README_ObjC.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_ObjC.md; sourceTree = "<group>"; };
 		B13CA05C1DD0D82C00E4F710 /* README_Swift.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Swift.md; sourceTree = "<group>"; };
+		B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_iOSArrayTests.swift; sourceTree = "<group>"; };
+		B1FA8F9E1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_macOSArrayTests.swift; sourceTree = "<group>"; };
+		B1FA8FA01E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_tvOSArrayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,7 +265,8 @@
 			isa = PBXGroup;
 			children = (
 				2F5829691DF4A7DE0033C3D4 /* Info.plist */,
-				2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSTests.swift */,
+				2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift */,
+				B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -286,7 +293,8 @@
 			isa = PBXGroup;
 			children = (
 				2F5829701DF4A7DE0033C3D4 /* Info.plist */,
-				2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSTests.swift */,
+				2F5829711DF4A7DE0033C3D4 /* JustPromisesSwift_macOSPromiseTests.swift */,
+				B1FA8F9E1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -313,7 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				2F5829771DF4A7DE0033C3D4 /* Info.plist */,
-				2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSTests.swift */,
+				2F5829781DF4A7DE0033C3D4 /* JustPromisesSwift_tvOSPromiseTests.swift */,
+				B1FA8FA01E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -810,7 +819,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F58297F1DF4A7F80033C3D4 /* JustPromisesSwift_iOSTests.swift in Sources */,
+				2F58297F1DF4A7F80033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift in Sources */,
+				B1FA8F9D1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,7 +846,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F5829831DF4A8150033C3D4 /* JustPromisesSwift_tvOSTests.swift in Sources */,
+				2F5829831DF4A8150033C3D4 /* JustPromisesSwift_tvOSPromiseTests.swift in Sources */,
+				B1FA8FA11E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -853,7 +864,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F5829811DF4A80A0033C3D4 /* JustPromisesSwift_macOSTests.swift in Sources */,
+				2F5829811DF4A80A0033C3D4 /* JustPromisesSwift_macOSPromiseTests.swift in Sources */,
+				B1FA8F9F1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1496,6 +1508,7 @@
 				2F5829151DF4A54C0033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F5829161DF4A54C0033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1504,6 +1517,7 @@
 				2F5829181DF4A54C0033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F5829231DF4A58D0033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_watchOS" */ = {
 			isa = XCConfigurationList;
@@ -1512,6 +1526,7 @@
 				2F5829251DF4A58D0033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F58293C1DF4A5CF0033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_tvOS" */ = {
 			isa = XCConfigurationList;
@@ -1520,6 +1535,7 @@
 				2F58293E1DF4A5CF0033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F58293F1DF4A5CF0033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1528,6 +1544,7 @@
 				2F5829411DF4A5CF0033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F5829581DF4A6040033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_macOS" */ = {
 			isa = XCConfigurationList;
@@ -1536,6 +1553,7 @@
 				2F58295A1DF4A6040033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F58295B1DF4A6040033C3D4 /* Build configuration list for PBXNativeTarget "JustPromisesSwift_macOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1544,6 +1562,7 @@
 				2F58295D1DF4A6040033C3D4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4F74B0D21B47CD0300595442 /* Build configuration list for PBXNativeTarget "JustPromisesDEMO" */ = {
 			isa = XCConfigurationList;

@@ -1,6 +1,6 @@
 //
-//  JustPromisesSwift_tvOSTests.swift
-//  JustPromisesSwift_tvOSTests
+//  JustPromisesSwift_macOSPromiseTests.swift
+//  JustPromisesSwift_macOSTests
 //
 //  Created by Keith Moon on 04/12/2016.
 //  Copyright © 2016 JUST EAT. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 import Foundation
-import JustPromisesSwift_tvOS
+import JustPromisesSwift_macOS
 
 enum TestError: Error {
     case somethingWentWrong

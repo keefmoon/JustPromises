@@ -1,5 +1,5 @@
 //
-//  JustPromisesSwift_iOSTests.swift
+//  JustPromisesSwift_iOSPromiseTests.swift
 //  JustPromisesSwift_iOSTests
 //
 //  Created by Keith Moon on 04/12/2016.
@@ -287,7 +287,7 @@ class PromiseTests: XCTestCase {
         }
     }
     
-    func testPromiseWillFailAfterGivenNumberOFReties() {
+    func testPromiseWillFailAfterGivenNumberOfRetries() {
         
         let asyncExpectation1 = expectation(description: "Await execution")
         
