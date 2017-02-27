@@ -38,7 +38,11 @@ class JustPromisesSwift_iOSKVOTests: XCTestCase {
     
     func testKVOPromiseCanObserveQueueOperationCount() {
         
-        let asyncExpectation = expectation(description: "Queue empty")
+        let asyncExpectation0 = expectation(description: "Queue empty")
+        let asyncExpectation1 = expectation(description: "Queue empty")
+        let asyncExpectation2 = expectation(description: "Queue empty")
+        let asyncExpectation3 = expectation(description: "Queue empty")
+        let asyncExpectation4 = expectation(description: "Queue empty")
         
         operationQueue.isSuspended = true
         
@@ -54,9 +58,25 @@ class JustPromisesSwift_iOSKVOTests: XCTestCase {
         
         let kvoPromise = KVOPromise<Void, OperationQueue>(objectToObserve: operationQueue, forKeyPath: "operationCount", options: [.new]) { (object, changeDictionary, promise) in
             
-            if object.operationCount == 0 {
+            switch object.operationCount {
+                
+            case 4:
+                asyncExpectation4.fulfill()
+                
+            case 3:
+                asyncExpectation3.fulfill()
+                
+            case 2:
+                asyncExpectation2.fulfill()
+                
+            case 1:
+                asyncExpectation1.fulfill()
+                
+            case 0:
                 promise.futureState = .result()
-                asyncExpectation.fulfill()
+                asyncExpectation0.fulfill()
+                
+            default: break
             }
         }
         
