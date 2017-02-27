@@ -237,9 +237,9 @@
 		2F5829601DF4A7DE0033C3D4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				B142DDBE1E6435D800946479 /* KVOPromise.swift */,
 				2F5829611DF4A7DE0033C3D4 /* AsyncOperation.swift */,
 				2F5829621DF4A7DE0033C3D4 /* Promise.swift */,
+				B142DDBE1E6435D800946479 /* KVOPromise.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

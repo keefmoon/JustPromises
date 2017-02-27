@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// A promise to fulfill try and fulfill a future value, which respect to a KVO keypath.
 open class KVOPromise<FutureType, ObservingType: NSObject>: Promise<FutureType> {
     
     open weak var objectToObserve: ObservingType?
@@ -16,6 +17,17 @@ open class KVOPromise<FutureType, ObservingType: NSObject>: Promise<FutureType> 
     open var context: UnsafeMutableRawPointer?
     open var observeBlock: (ObservingType, [NSKeyValueChangeKey : Any], Promise<FutureType>) -> Void
     
+    /// Create a promise to perform Key-Value Observing.
+    /// 
+    /// - parameter objectToObserve: The object to observe
+    /// - parameter forKeyPath: The keypath to observe
+    /// - parameter options: The KVO options to use
+    /// - parameter context: Optional context for KVO
+    /// - parameter observeBlock: Block that receives the observed object, the change dictionary and a reference to the promise. 
+    ///                           This fires whenever there is a change to the keypath in line with provided options. 
+    ///                           Block should eventually fulfill the futureState of the Promise.
+    ///
+    /// - returns: A Promise, that has not been put on a queue. Call await() or awaitOnMainQueue() to enqueue
     public init(objectToObserve object: ObservingType,
          forKeyPath keyPath: String,
          options: NSKeyValueObservingOptions,
