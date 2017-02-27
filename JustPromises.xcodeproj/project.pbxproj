@@ -41,6 +41,8 @@
 		4FCF53A01B47F5480025D30D /* JEFuture+JEDotNotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FCF539E1B47F5480025D30D /* JEFuture+JEDotNotation.h */; };
 		4FCF53A11B47F5480025D30D /* JEFuture+JEDotNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF539F1B47F5480025D30D /* JEFuture+JEDotNotation.m */; };
 		4FCF53A31B47F5820025D30D /* JEFuture_DotNotationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */; };
+		B142DDBF1E6435D800946479 /* KVOPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = B142DDBE1E6435D800946479 /* KVOPromise.swift */; };
+		B142DDC11E6435DF00946479 /* JustPromisesSwift_iOSKVOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B142DDC01E6435DF00946479 /* JustPromisesSwift_iOSKVOTests.swift */; };
 		B1FA8F9D1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */; };
 		B1FA8F9F1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8F9E1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift */; };
 		B1FA8FA11E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FA8FA01E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift */; };
@@ -129,6 +131,8 @@
 		4FCF53A21B47F5820025D30D /* JEFuture_DotNotationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JEFuture_DotNotationTests.m; sourceTree = "<group>"; };
 		B13CA05B1DD0D81900E4F710 /* README_ObjC.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_ObjC.md; sourceTree = "<group>"; };
 		B13CA05C1DD0D82C00E4F710 /* README_Swift.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README_Swift.md; sourceTree = "<group>"; };
+		B142DDBE1E6435D800946479 /* KVOPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVOPromise.swift; sourceTree = "<group>"; };
+		B142DDC01E6435DF00946479 /* JustPromisesSwift_iOSKVOTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_iOSKVOTests.swift; sourceTree = "<group>"; };
 		B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_iOSArrayTests.swift; sourceTree = "<group>"; };
 		B1FA8F9E1E4DE17D00D217DB /* JustPromisesSwift_macOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_macOSArrayTests.swift; sourceTree = "<group>"; };
 		B1FA8FA01E4DE29800D217DB /* JustPromisesSwift_tvOSArrayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JustPromisesSwift_tvOSArrayTests.swift; sourceTree = "<group>"; };
@@ -226,6 +230,7 @@
 		2F5829601DF4A7DE0033C3D4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B142DDBE1E6435D800946479 /* KVOPromise.swift */,
 				2F5829611DF4A7DE0033C3D4 /* AsyncOperation.swift */,
 				2F5829621DF4A7DE0033C3D4 /* Promise.swift */,
 			);
@@ -264,6 +269,7 @@
 		2F5829681DF4A7DE0033C3D4 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B142DDC01E6435DF00946479 /* JustPromisesSwift_iOSKVOTests.swift */,
 				2F5829691DF4A7DE0033C3D4 /* Info.plist */,
 				2F58296A1DF4A7DE0033C3D4 /* JustPromisesSwift_iOSPromiseTests.swift */,
 				B1FA8F9C1E4DD5FF00D217DB /* JustPromisesSwift_iOSArrayTests.swift */,
@@ -697,6 +703,7 @@
 					};
 					4FBCFFDD1B46DC9F007BD426 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0820;
 					};
 					4FBCFFE61B46DC9F007BD426 = {
 						CreatedOnToolsVersion = 7.0;
@@ -885,7 +892,9 @@
 			files = (
 				4FBC00051B46DCE2007BD426 /* JEFuture.m in Sources */,
 				4FBC00071B46DCE2007BD426 /* JEProgress.m in Sources */,
+				B142DDBF1E6435D800946479 /* KVOPromise.swift in Sources */,
 				4FCF53A11B47F5480025D30D /* JEFuture+JEDotNotation.m in Sources */,
+				B142DDC11E6435DF00946479 /* JustPromisesSwift_iOSKVOTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1339,6 +1348,7 @@
 		4FBCFFF61B46DC9F007BD426 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1354,6 +1364,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1363,6 +1375,7 @@
 		4FBCFFF71B46DC9F007BD426 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1378,6 +1391,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.justeat.JustPromises;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1387,6 +1401,7 @@
 		4FBCFFFA1B46DC9F007BD426 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
@@ -1401,6 +1416,7 @@
 		4FBCFFFB1B46DC9F007BD426 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
