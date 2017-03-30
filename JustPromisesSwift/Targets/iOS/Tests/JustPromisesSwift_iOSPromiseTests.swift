@@ -324,4 +324,110 @@ class PromiseTests: XCTestCase {
             XCTAssertNil(error)
         }
     }
+    
+    func testPromiseCanBeDelayedBetweenRetries() {
+        
+        let asyncExpectation1 = expectation(description: "Await execution")
+        
+        var startTime: Date?
+        
+        var attempt = 0
+        let fail3Times = FailThenSucceed(numberOfTimesToFail: 3)
+        
+        let promise = Promise<Void>(executionBlock: { promise in
+            
+            if startTime == nil {
+                startTime = Date()
+            }
+            
+            let didSucceed = fail3Times.tryToSucceed()
+            
+            if didSucceed {
+                promise.futureState = .result()
+            } else {
+                attempt = attempt + 1
+                promise.futureState = .error(Failed.attempt(attempt))
+            }
+        })
+        
+        promise.retryCount = 3
+        promise.retryDelay = 0.5
+        promise.await().continuation { promise in
+            
+            defer {
+                asyncExpectation1.fulfill()
+            }
+            
+            guard let startTime = startTime else {
+                XCTFail()
+                return
+            }
+            
+            switch promise.futureState {
+            case .result():
+                
+                // It should have teken about 1.5 seconds
+                // Try 1 -> Wait 0.5s -> Retry 1 -> Wait 0.5s -> Retry 2 -> Wait 0.5s -> Retry 3 -> Success = 1.5s
+                let elasedTime = -startTime.timeIntervalSinceNow // This would be negative, invert it to make more sense
+                
+                if elasedTime > 1.1 && elasedTime < 1.9 {
+                    XCTAssertEqual(attempt, 3)
+                } else {
+                    XCTFail()
+                }
+                
+            default:
+                XCTFail()
+            }
+        }
+        
+        waitForExpectations(timeout: 3.0) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testPromiseCanBeCancelledBeforeRetry() {
+        
+        let asyncExpectation1 = expectation(description: "Await execution")
+        
+        var attempt = 0
+        let fail3Times = FailThenSucceed(numberOfTimesToFail: 3)
+        
+        let promise = Promise<Void>(executionBlock: { promise in
+            
+            let didSucceed = fail3Times.tryToSucceed()
+            
+            if didSucceed {
+                promise.futureState = .result()
+            } else {
+                attempt = attempt + 1
+                promise.futureState = .error(Failed.attempt(attempt))
+            }
+        })
+        
+        // Promise will take about 4.5 seconds
+        promise.retryCount = 3
+        promise.retryDelay = 1.5
+        promise.await().continuation { promise in
+            
+            defer {
+                asyncExpectation1.fulfill()
+            }
+            
+            switch promise.futureState {
+            case .cancelled: break
+            default: XCTFail()
+            }
+        }
+        
+        // Cancel after 1 second
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) { 
+            promise.cancel()
+        }
+        
+        // Wait up to 3 seconds
+        waitForExpectations(timeout: 3.0) { error in
+            XCTAssertNil(error)
+        }
+    }
 }

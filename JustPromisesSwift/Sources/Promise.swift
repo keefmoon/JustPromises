@@ -51,9 +51,9 @@ open class Promise<FutureType>: AsyncOperation {
         didSet {
             switch (futureState, retryCount) {
                 
-            case (.error(_), let retry) where retry > 0:
+            case (.error(_), let retriesRemaining) where retriesRemaining > 0:
                 retryCount = retryCount - 1
-                execute()
+                retry()
                 
             case (.error(_), _), (.result(_), _):
                 finish()
@@ -64,9 +64,7 @@ open class Promise<FutureType>: AsyncOperation {
         }
     }
     
-    // Number of times to retry if error. Promise will retry until result or retries runout, in which case the 
-    // last error is returned.
-    public var retryCount: UInt = 0
+    // MARK: Lifecycle
     
     /// Create a promise with an execution block.
     ///
@@ -89,15 +87,47 @@ open class Promise<FutureType>: AsyncOperation {
         })
     }
     
-    /// Should not be called directly. This will fire the execution block.
-    override open func execute() {
+    // MARK: Start/Stop
+    
+    /// Cannot be overriden. This will fire the execution block.
+    override final public func execute() {
         executionBlock(self)
     }
     
     /// Will cancel the promise
     open override func cancel() {
+        timer?.invalidate()
+        timer = nil
         super.cancel()
         futureState = .cancelled
+    }
+    
+    // MARK: Retrying
+    
+    // Number of times to retry if error. Promise will retry until result or retries runout, in which case the
+    // last error is returned.
+    public var retryCount: UInt = 0
+    
+    // Amount to delay a retry, if nil, retry will be executed immediately.
+    public var retryDelay: TimeInterval?
+    private var timer: Timer?
+    
+    private func retry() {
+        
+        // If there is a retry delay, only retry when the timer fires, otherwise, retry immediately
+        if let retryDelay = retryDelay, timer == nil {
+            let retryTimer = Timer(timeInterval: retryDelay, target: self, selector: #selector(timerFired(sender:)), userInfo: nil, repeats: false)
+            timer = retryTimer
+            RunLoop.main.add(retryTimer, forMode: RunLoopMode.defaultRunLoopMode)
+        } else {
+            execute()
+        }
+    }
+    
+    @objc func timerFired(sender: Timer) {
+        sender.invalidate()
+        timer = nil
+        execute()
     }
 }
 

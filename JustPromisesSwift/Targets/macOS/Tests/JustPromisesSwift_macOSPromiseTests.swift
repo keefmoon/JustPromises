@@ -225,4 +225,160 @@ class PromiseTests: XCTestCase {
             XCTAssertNil(error)
         }
     }
+    
+    enum Failed: Error {
+        case attempt(Int)
+    }
+    
+    class FailThenSucceed {
+        
+        var numberOfTimesToFail: Int
+        
+        init(numberOfTimesToFail: Int) {
+            self.numberOfTimesToFail = numberOfTimesToFail
+        }
+        
+        func tryToSucceed() -> Bool {
+            if numberOfTimesToFail == 0 {
+                return true
+            } else {
+                numberOfTimesToFail = numberOfTimesToFail - 1
+                return false
+            }
+        }
+    }
+    
+    func testPromiseCanRety() {
+        
+        let asyncExpectation1 = expectation(description: "Await execution")
+        
+        var attempt = 0
+        let fail4Times = FailThenSucceed(numberOfTimesToFail: 4)
+        
+        let promise = Promise<Bool>(executionBlock: { promise in
+            
+            DispatchQueue.main.async {
+                
+                let didSucceed = fail4Times.tryToSucceed()
+                
+                if didSucceed {
+                    promise.futureState = .result(true)
+                } else {
+                    attempt = attempt + 1
+                    promise.futureState = .error(Failed.attempt(attempt))
+                }
+            }
+        })
+        
+        promise.retryCount = 5
+        promise.await().continuation { promise in
+            
+            switch promise.futureState {
+            case .result(true):
+                asyncExpectation1.fulfill()
+            default:
+                XCTFail()
+            }
+        }
+        
+        waitForExpectations(timeout: 3.0) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testPromiseWillFailAfterGivenNumberOfRetries() {
+        
+        let asyncExpectation1 = expectation(description: "Await execution")
+        
+        var attempt = 0
+        let fail6Times = FailThenSucceed(numberOfTimesToFail: 6)
+        
+        let promise = Promise<Bool>(executionBlock: { promise in
+            
+            DispatchQueue.main.async {
+                
+                let didSucceed = fail6Times.tryToSucceed()
+                
+                if didSucceed {
+                    promise.futureState = .result(true)
+                } else {
+                    attempt = attempt + 1
+                    promise.futureState = .error(Failed.attempt(attempt))
+                }
+            }
+        })
+        
+        promise.retryCount = 5
+        promise.await().continuation { promise in
+            
+            switch promise.futureState {
+            case .error(Failed.attempt(6)):
+                asyncExpectation1.fulfill()
+            default:
+                XCTFail()
+            }
+        }
+        
+        waitForExpectations(timeout: 3.0) { error in
+            XCTAssertNil(error)
+        }
+    }
+    
+    func testPromiseCanBeDelayedBetweenRetries() {
+        
+        let asyncExpectation1 = expectation(description: "Await execution")
+        
+        var startTime: Date?
+        
+        var attempt = 0
+        let fail3Times = FailThenSucceed(numberOfTimesToFail: 3)
+        
+        let promise = Promise<Void>(executionBlock: { promise in
+            
+            if startTime == nil {
+                startTime = Date()
+            }
+            
+            let didSucceed = fail3Times.tryToSucceed()
+            
+            if didSucceed {
+                promise.futureState = .result()
+            } else {
+                attempt = attempt + 1
+                promise.futureState = .error(Failed.attempt(attempt))
+            }
+        })
+        
+        promise.retryCount = 3
+        promise.retryDelay = 0.5
+        promise.await().continuation { promise in
+            
+            guard let startTime = startTime else {
+                XCTFail()
+                return
+            }
+            
+            switch promise.futureState {
+            case .result():
+                
+                // It should have teken about 1.5 seconds
+                // Try 1 -> Wait 0.5s -> Retry 1 -> Wait 0.5s -> Retry 2 -> Wait 0.5s -> Retry 3 -> Success = 1.5s
+                let elasedTime = -startTime.timeIntervalSinceNow // This would be negative, invert it to make more sense
+                
+                if elasedTime > 1.1 && elasedTime < 1.9 {
+                    XCTAssertEqual(attempt, 3)
+                    asyncExpectation1.fulfill()
+                } else {
+                    XCTFail()
+                }
+                
+            default:
+                XCTFail()
+            }
+        }
+        
+        waitForExpectations(timeout: 3.0) { error in
+            XCTAssertNil(error)
+        }
+    }
 }

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "JustPromises"
-  s.version      = "3.1.0"
+  s.version      = "3.2.0"
   s.summary      = "A lightweight and thread-safe implementation of Promises & Futures in both Objective-C and Swift 3 for iOS, macOS, watchOS and tvOS."
 
   s.description  = <<-DESC
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/justeat/JustPromises.git", :tag => "3.1.0" }
+  s.source       = { :git => "https://github.com/justeat/JustPromises.git", :tag => "3.2.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
