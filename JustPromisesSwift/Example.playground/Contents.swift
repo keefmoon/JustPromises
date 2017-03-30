@@ -132,7 +132,11 @@ func mapToVenue(from parsedPromise: Promise<[String: AnyObject]>) -> Promise<[Ve
 
 let request = createFoursquareRequest(withQuery: "sushi")
 
-downloadJSON(with: request).await().continuation { downloadPromise in
+let downloadPromise = downloadJSON(with: request)
+downloadPromise.retryCount = 3 // If results in error, retry up to 3 times before giving up
+downloadPromise.retryDelay = 2.0 // Leave 2 seconds in between each retry
+
+downloadPromise.await().continuation { downloadPromise in
     
     return parseJSONDataToDictionary(from: downloadPromise)
     
